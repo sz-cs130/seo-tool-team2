@@ -10,7 +10,6 @@ public class WebApp
   public static void main(String args[])
   {
     String keyword = args[0]; // the keyword
-    // int num_top_pages = 3; // only use top three pages
     WebPage[] webpages = new WebPage[num_top_pages + 1];
     int i;
     for(i = 0; i < num_top_pages+1; i++)
@@ -25,12 +24,9 @@ public class WebApp
     /*TESTING*/ webpages[0].set_content("purple is purple hippos"); // for testing
     /*TESTING*/ webpages[1].set_content("purple purple more purple");
     /*TESTING*/ webpages[2].set_content("hello candy world");
-    //for(i = 0; i < num_top_pages+1; i++)
-    //{
-      keyword_in_page(webpages);
-      keyword_in_tags(webpages);
-      keyword_in_url(webpages);
-    //}
+    keyword_in_page(webpages);
+    keyword_in_tags(webpages);
+    keyword_in_url(webpages);
     /*TESTING*/ out.printf("Keys in Page0: %d\n", webpages[0].keys_in_page); // for testing
     /*TESTING*/ out.printf("Keys in Page1: %d\n", webpages[1].keys_in_page); // for testing
     /*TESTING*/ out.printf("Keys in Page2: %d\n", webpages[2].keys_in_page); // for testing
