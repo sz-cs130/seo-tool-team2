@@ -1,3 +1,6 @@
+
+package com.shopzilla.ucla.cs130.seotool.team2.model;
+
 public class WebPage
 {
   protected String content; // the content of the webpage
