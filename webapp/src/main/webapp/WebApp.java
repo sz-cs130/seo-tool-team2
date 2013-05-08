@@ -15,12 +15,12 @@ public class WebApp
     for(i = 0; i < num_top_pages+1; i++)
     {
       webpages[i] = new WebPage();
+      webpages[i].set_keyword(keyword);
     }
     //============================================= 
     // call webservice function to get the webpages
     //=============================================
-    webpages[0].set_content("purple is purple hippos");
-    webpages[0].set_keyword(keyword);
+    webpages[0].set_content("purple is purple hippos"); // for testing
     for(i = 0; i < num_top_pages+1; i++)
     {
       keyword_in_page(webpages[i]);
