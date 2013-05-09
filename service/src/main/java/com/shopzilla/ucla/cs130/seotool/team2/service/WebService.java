@@ -5,6 +5,8 @@ import com.shopzilla.ucla.cs130.seotool.team2.model.*;
 import java.lang.String;
 import java.net.*;
 import java.io.*;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,19 +25,37 @@ public class WebService {
          URL url = new URL("https://www.google.apis.com/customsearch/v1?key="
             + key +"&cx=013036536707430787589:_pqjad5hr1a$q="
             + query+ "&alt=json");
+         
          // create the connection
          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
          conn.setRequestMethod("GET");
          conn.setRequestProperty("Accept",  "applicaiton/json");
+         
          // grab the reply
          BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
          while((line = br.readLine()) != null){
             build.append(line);
          }
+         
          // close the reader
          br.close();
+         
          // create the JSONObject
          JSONObject results = new JSONObject(build.toString());
+         
+         // get the JSON element items
+         JSONArray items = results.getJSONArray("items");
+         int size = items.length();
+         
+         // array to store the links
+         String [] links = new String[size];
+         
+         for(int i = 0; i < size; i++){
+            // grab each element in the array
+            JSONObject temp = items.getJSONObject(i);
+            // grab the link and store into the array of links
+            links[i] = temp.getString("link");
+         }
       } catch (IOException e){
          System.err.println("Error during REST invocation of API!");
          System.err.println("Exception Thrown: " + e.getMessage());
