@@ -16,11 +16,12 @@ public class WebService {
    public static WebPage[] service(WebPage input){
       //Jonathan's code here
       
-      String query = input.get_keyword();
-      String line;
-      StringBuilder build = new StringBuilder();
-      
+      String [] links = new String[3];
+     
       try{
+         String query = input.get_keyword();
+         String line;
+         StringBuilder build = new StringBuilder();
          // form the url for the google query
          URL url = new URL("https://www.google.apis.com/customsearch/v1?key="
             + key +"&cx=013036536707430787589:_pqjad5hr1a$q="
@@ -48,14 +49,27 @@ public class WebService {
          int size = items.length();
          
          // array to store the links
-         String [] links = new String[size];
+         int j = 0;
          
          for(int i = 0; i < size; i++){
             // grab each element in the array
             JSONObject temp = items.getJSONObject(i);
+            
+            // check if the link belongs to amazon or ebay
+            if (temp.getString("link").contains("amazon") || 
+                temp.getString("link").contains("ebay")){
+               continue;
+            }
+            
             // grab the link and store into the array of links
-            links[i] = temp.getString("link");
+            links[j] = temp.getString("link");
+            // links size counter
+            j++;
+            if (j >= 3){
+               break;
+            }
          }
+         
       } catch (IOException e){
          System.err.println("Error during REST invocation of API!");
          System.err.println("Exception Thrown: " + e.getMessage());
