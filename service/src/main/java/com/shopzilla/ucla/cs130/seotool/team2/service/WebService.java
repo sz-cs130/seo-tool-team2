@@ -5,6 +5,7 @@ import com.shopzilla.ucla.cs130.seotool.team2.model.*;
 import java.lang.String;
 import java.net.*;
 import java.io.*;
+import java.io.BufferedReader;
 
 public class WebService {
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
@@ -19,6 +20,8 @@ public class WebService {
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setRequestMethod("GET");
       conn.setRequestProperty("Accept",  "applicaiton/json");
+      
+      BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
       
       } catch (IOException e){
          System.err.println("Error during REST invocation of API!");
