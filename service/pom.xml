@@ -25,5 +25,10 @@
         <artifactId>google-api-services-customsearch</artifactId>
         <version>v1-rev17-1.14.2-beta</version>
     </dependency>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20090211</version>
+    </dependency>
   </dependencies>
 </project>
