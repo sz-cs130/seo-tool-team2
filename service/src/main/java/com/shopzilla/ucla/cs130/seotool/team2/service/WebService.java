@@ -84,7 +84,47 @@ public class WebService {
       
    //---------------------------------------------------------------------------------
       //Albert's code here
-      return null;
+      /*
+       * add handling of cases where <100% of the pages are GET-able
+       * add handling of more than top 3 pages
+       * 
+       */
+      WebPage[] pages = new WebPage[links.length];
+      
+      try {
+    	  for(int i = 0; i < links.length; i++) {
+    		  
+    		  //setup connection
+    		  URL url = new URL(links[i]);
+    		  HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    		  conn.setRequestMethod("GET");
+    		  BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    		  
+    		  String content = "";
+    		  String temp;
+    		  
+    		  //read the contents of the page
+    		  while( (temp = rd.readLine()) != null) {
+    			  content += temp;
+    		  }
+    		  
+    		  //close buffered reader
+    		  rd.close();
+    		  
+    		  //fill our the WebPage object with content, keyword, and size
+    		  pages[i].set_content(content);
+    		  pages[i].set_keyword(input.get_keyword());
+    		  pages[i].set_size(content.length());
+    		  //add ranking, however need to clarify which ranking it is.
+    		  
+    	  }
+      } catch (Exception e) { //refine the possible error messages
+    	  System.err.println("Error during webpage crawling");
+    	  e.printStackTrace();
+      }
+      
+      
+      return pages;
    }
 
 }
