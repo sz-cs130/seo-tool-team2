@@ -12,11 +12,14 @@ import org.json.JSONObject;
 
 public class WebService {
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
+   private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
+   private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
    // method for them to call
    public static WebPage[] service(WebPage input){
       //Jonathan's code here
       
       String [] links = new String[3];
+      String bizlink = null;
      
       try{
          String query = input.get_keyword();
@@ -24,13 +27,13 @@ public class WebService {
          StringBuilder build = new StringBuilder();
          // form the url for the google query
          URL url = new URL("https://www.google.apis.com/customsearch/v1?key="
-            + key +"&cx=013036536707430787589:_pqjad5hr1a$q="
+            + key +"&cx=" + liveSearchID + "$q="
             + query+ "&alt=json");
          
          // create the connection
          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
          conn.setRequestMethod("GET");
-         conn.setRequestProperty("Accept",  "applicaiton/json");
+         conn.setRequestProperty("Accept",  "application/json");
          
          // grab the reply
          BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
@@ -50,10 +53,11 @@ public class WebService {
          
          // array to store the links
          int j = 0;
+         JSONObject temp;
          
          for(int i = 0; i < size; i++){
             // grab each element in the array
-            JSONObject temp = items.getJSONObject(i);
+            temp = items.getJSONObject(i);
             
             // check if the link belongs to amazon or ebay
             if (temp.getString("link").contains("amazon") || 
@@ -69,6 +73,35 @@ public class WebService {
                break;
             }
          }
+         
+         // now get the bizrate link
+         url = new URL("https://www.google.apis.com/customsearch/v1?key="
+               + key +"&cx=" + liveSearchID + "$q="
+               + query+ "&alt=json");
+            
+            // create the connection
+         conn = (HttpURLConnection) url.openConnection();
+         conn.setRequestMethod("GET");
+         conn.setRequestProperty("Accept",  "application/json");
+            
+         // grab the reply
+         br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+         while((line = br.readLine()) != null){
+            build.append(line);
+         }
+            
+         // close the reader
+         br.close();
+            
+            // create the JSONObject
+         results = new JSONObject(build.toString());
+            
+            // get the JSON element items
+         items = results.getJSONArray("items");
+         temp = items.getJSONObject(0);
+         bizlink = temp.getString("link");
+         
+         // works on local machine up to here
          
       } catch (IOException e){
          System.err.println("Error during REST invocation of API!");
