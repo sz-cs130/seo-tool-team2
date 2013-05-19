@@ -76,7 +76,7 @@ public class WebService {
          
          // now get the bizrate link
          url = new URL("https://www.google.apis.com/customsearch/v1?key="
-               + key +"&cx=" + liveSearchID + "$q="
+               + key +"&cx=" + bizSearchID + "$q="
                + query+ "&alt=json");
             
             // create the connection
