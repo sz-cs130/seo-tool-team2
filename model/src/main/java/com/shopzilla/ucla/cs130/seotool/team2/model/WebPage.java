@@ -12,6 +12,7 @@ public class WebPage
   public int keys_in_page;
   public int keys_in_url;
   public int keys_in_tags;
+  public int keys_in_title;
   //=======================================
   public WebPage()
   {
