@@ -58,4 +58,32 @@ public class WebApp
   {
     ;
   }
+  public static void keyword_in_title(WebPage[] webpages)
+  {
+    int i;
+	bool inTitle = false;
+    for(i = 0; i < num_top_pages+1; i++)
+    {
+    	String title = "<title>";
+    	Pattern titlePat = Pattern.compile(title);
+    	Matcher titleMat = titlePat.matcher(webpages[i].get_content);
+    	
+    	String endTitle = "</title>";
+    	Pattern endTitlePat = Pattern.compile(endTitle);
+    	Matcher endTitleMat = endTitlePat.matcher(webpages[i].get_content);
+    	
+		String pattern = webpages[i].get_keyword(); // the pattern is the keyword
+		Pattern pat = Pattern.compile(pattern); // create the pattern object
+		Matcher mat = pat.matcher(webpages[i].get_content()); // create the matcher object
+		
+		int count = 0; // keyword count
+		if(title.find()) inTitle = true;
+		if(endTitle.find()) break;
+		while(mat.find() && inTitle == true)
+		{
+		  count++;
+		}
+		webpages[i].keys_in_title = count;
+    }
+  }
 }
