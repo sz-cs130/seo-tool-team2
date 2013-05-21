@@ -1,43 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>  
-     <bean id="weatherController" 
-           class="org.sonatype.mavenbook.web.WeatherController">
-       <property name="weatherService" ref="weatherService"/>
-       <property name="weatherDAO" ref="weatherDAO"/>
-     </bean>
-
-     <bean id="historyController" 
-           class="org.sonatype.mavenbook.web.HistoryController">
-       <property name="weatherDAO" ref="weatherDAO"/>
-       <property name="locationDAO" ref="locationDAO"/>
-     </bean>
-
-     <!-- you can have more than one handler defined -->
-     <bean id="urlMapping" 
-          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-          <property name="urlMap">
-               <map>
-                    <entry key="/weather.x">
-                         <ref bean="weatherController" />
-                    </entry>
-                    <entry key="/history.x">
-                         <ref bean="historyController" />
-                    </entry>
-               </map>
-          </property>
-     </bean>
-
-
-     <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-       <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
-     </bean>
-
-     <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-       <property name="cache" value="true"/>
-       <property name="prefix" value=""/>
-       <property name="suffix" value=".vm"/>
-       <property name="exposeSpringMacroHelpers" value="true"/>
-     </bean>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+ 
+    <context:component-scan base-package="com.shopzilla.ucla.cs130.seotool.team2.webapp" />
+    <mvc:annotation-driven />
+     
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
 </beans>

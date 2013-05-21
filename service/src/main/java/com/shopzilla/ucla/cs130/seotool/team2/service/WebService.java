@@ -14,15 +14,15 @@ public class WebService {
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
    private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
    private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
+   private static final String shopzillaSearchID = "013100502047583691894:9ncazeorv5y";
    // method for them to call
-   public static WebPage[] service(WebPage input){
+   public static WebPage[] service(String query, String targetsite){
       //Jonathan's code here
       
       String [] links = new String[3];
-      String bizlink = null;
+      String targetlink = null;
      
       try{
-         String query = input.get_keyword();
          String line;
          StringBuilder build = new StringBuilder();
          // form the url for the google query
@@ -74,10 +74,20 @@ public class WebService {
             }
          }
          
-         // now get the bizrate link
-         url = new URL("https://www.google.apis.com/customsearch/v1?key="
+         // ------now get the target link link------------
+         // get a new StringBuilder so garbage isn't collected
+         build = new StringBuilder();
+         
+         if(targetsite.contains("bizrate")){
+            url = new URL("https://www.google.apis.com/customsearch/v1?key="
                + key +"&cx=" + bizSearchID + "$q="
                + query+ "&alt=json");
+         }
+         else{
+            url = new URL("https://www.google.apis.com/customsearch/v1?key="
+                  + key +"&cx=" + shopzillaSearchID + "$q="
+                  + query+ "&alt=json");
+         }
             
             // create the connection
          conn = (HttpURLConnection) url.openConnection();
@@ -99,7 +109,7 @@ public class WebService {
             // get the JSON element items
          items = results.getJSONArray("items");
          temp = items.getJSONObject(0);
-         bizlink = temp.getString("link");
+         targetlink = temp.getString("link");
          
          // works on local machine up to here
          
@@ -146,7 +156,7 @@ public class WebService {
     		  
     		  //fill our the WebPage object with content, keyword, and size
     		  pages[i].set_content(content);
-    		  pages[i].set_keyword(input.get_keyword());
+    		  pages[i].set_keyword(query);
     		  pages[i].set_size(content.length());
     		  //add ranking, however need to clarify which ranking it is.
     		  
