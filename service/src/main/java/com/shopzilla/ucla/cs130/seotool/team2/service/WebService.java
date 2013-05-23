@@ -135,8 +135,6 @@ public class WebService {
       }
       
       
-      pages[0].set_url(targetlink);
-      
       
    //---------------------------------------------------------------------------------
       //Albert's code here
@@ -147,10 +145,10 @@ public class WebService {
        */
       
       try {
-    	  for(int i = 0; i < links.length; i++) {
+    	  for(int i = 0; i < pages.length; i++) {
     		  
     		  //setup connection
-    		  URL url = new URL(links[i]);
+    		  URL url = new URL(pages[i].get_url());
     		  HttpURLConnection conn = (HttpURLConnection)url.openConnection();
     		  conn.setRequestMethod("GET");
     		  BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
