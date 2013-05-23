@@ -1,6 +1,6 @@
 <html>
 <body>
-<h2> Results Display Here <h2>
-
+<h1>Results for '${query}'</h1>
+${output}
 </body>
 </html>
