@@ -22,6 +22,9 @@ public class WebService {
       
       
       WebPage[] pages = new WebPage[numresults + 1];
+      for(int i = 0; i < numresults + 1; i++){
+         pages[i] = new WebPage();
+      }
       boolean done = false;
      
       try{
@@ -54,7 +57,7 @@ public class WebService {
          int size = items.length();
          
          // array to store the links
-         int j = 0;
+         int j = 1;
          JSONObject temp;
          
          for(int i = 0; i < size; i++){
@@ -75,11 +78,11 @@ public class WebService {
             }
             
             // grab the link and store into the array of links
-            pages[j+1].set_url(temp.getString("link"));
-            pages[j+1].set_rank(i+1);
+            pages[j].set_url(tempurl);
+            pages[j].set_rank(i+1);
             // links size counter
             j++;
-            if (j >= numresults){
+            if (j == numresults){
                break;
             }
          }
