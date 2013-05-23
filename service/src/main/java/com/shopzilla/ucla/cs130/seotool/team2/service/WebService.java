@@ -20,8 +20,9 @@ public class WebService {
    public static WebPage[] service(String query, String targetsite){
       //Jonathan's code here
       
-      String [] links = new String[numresults];
-      String targetlink = null;
+      
+      WebPage[] pages = new WebPage[numresults + 1];
+      boolean done = false;
      
       try{
          String line;
@@ -59,15 +60,23 @@ public class WebService {
          for(int i = 0; i < size; i++){
             // grab each element in the array
             temp = items.getJSONObject(i);
+            String tempurl = temp.getString("link");
             
             // check if the link belongs to amazon or ebay
-            if (temp.getString("link").contains("amazon") || 
-                temp.getString("link").contains("ebay")){
+            if (tempurl.contains("amazon") || 
+                tempurl.contains("ebay")){
+               continue;
+            }
+            else if(tempurl.contains(targetsite)){
+               pages[0].set_url(tempurl);
+               pages[0].set_rank(i+1);
+               done = true;
                continue;
             }
             
             // grab the link and store into the array of links
-            links[j] = temp.getString("link");
+            pages[j+1].set_url(temp.getString("link"));
+            pages[j+1].set_rank(i+1);
             // links size counter
             j++;
             if (j >= numresults){
@@ -76,42 +85,43 @@ public class WebService {
          }
          
          // ------now get the target link link------------
+         if(!done){
          // get a new StringBuilder so garbage isn't collected
-         build = new StringBuilder();
+            build = new StringBuilder();
          
-         if(targetsite.contains("bizrate")){
-            url = new URL("https://www.googleapis.com/customsearch/v1?key="
-               + key +"&cx=" + bizSearchID + "&q="
-               + query+ "&alt=json");
-         }
-         else{
-            url = new URL("https://www.googleapis.com/customsearch/v1?key="
+            if(targetsite.contains("bizrate")){
+               url = new URL("https://www.googleapis.com/customsearch/v1?key="
+                  + key +"&cx=" + bizSearchID + "&q="
+                  + query+ "&alt=json");
+            }
+            else{
+               url = new URL("https://www.googleapis.com/customsearch/v1?key="
                   + key +"&cx=" + shopzillaSearchID + "&q="
                   + query+ "&alt=json");
-         }
+            }
             
             // create the connection
-         conn = (HttpURLConnection) url.openConnection();
-         conn.setRequestMethod("GET");
-         conn.setRequestProperty("Accept",  "application/json");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept",  "application/json");
             
          // grab the reply
-         br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-         while((line = br.readLine()) != null){
-            build.append(line);
-         }
+            br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            while((line = br.readLine()) != null){
+               build.append(line);
+            }
             
-         // close the reader
-         br.close();
+            // close the reader
+            br.close();
             
             // create the JSONObject
-         results = new JSONObject(build.toString());
+            results = new JSONObject(build.toString());
             
             // get the JSON element items
-         items = results.getJSONArray("items");
-         temp = items.getJSONObject(0);
-         targetlink = temp.getString("link");
-         
+            items = results.getJSONArray("items");
+            temp = items.getJSONObject(0);
+            pages[0].set_url(temp.getString("link"));
+         }
          // works on local machine up to here
          
       } catch (IOException e){
@@ -125,6 +135,8 @@ public class WebService {
       }
       
       
+      pages[0].set_url(targetlink);
+      
       
    //---------------------------------------------------------------------------------
       //Albert's code here
@@ -133,7 +145,6 @@ public class WebService {
        * add handling of more than top 3 pages
        * 
        */
-      WebPage[] pages = new WebPage[links.length];
       
       try {
     	  for(int i = 0; i < links.length; i++) {

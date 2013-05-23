@@ -21,8 +21,10 @@ public class MainController {
    @RequestMapping(value="/optimize", method=RequestMethod.GET)
    public String mirrorGet(String query, String targetsite, Model model){
       // calls the webservice
-      WebPage [] webpages = WebService.service(query, targetsite);
+      //WebPage [] webpages = WebService.service(query, targetsite);
       // WebApp gets called here
+      model.addAttribute("query", query);
+      model.addAttribute("targetsite", targetsite);
       
       return "results";
    }
