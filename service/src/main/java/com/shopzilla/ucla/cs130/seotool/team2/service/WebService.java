@@ -26,8 +26,8 @@ public class WebService {
          String line;
          StringBuilder build = new StringBuilder();
          // form the url for the google query
-         URL url = new URL("https://www.google.apis.com/customsearch/v1?key="
-            + key +"&cx=" + liveSearchID + "$q="
+         URL url = new URL("https://www.googleapis.com/customsearch/v1?key="
+            + key +"&cx=" + liveSearchID + "&q="
             + query+ "&alt=json");
          
          // create the connection
@@ -79,13 +79,13 @@ public class WebService {
          build = new StringBuilder();
          
          if(targetsite.contains("bizrate")){
-            url = new URL("https://www.google.apis.com/customsearch/v1?key="
-               + key +"&cx=" + bizSearchID + "$q="
+            url = new URL("https://www.googleapis.com/customsearch/v1?key="
+               + key +"&cx=" + bizSearchID + "&q="
                + query+ "&alt=json");
          }
          else{
-            url = new URL("https://www.google.apis.com/customsearch/v1?key="
-                  + key +"&cx=" + shopzillaSearchID + "$q="
+            url = new URL("https://www.googleapis.com/customsearch/v1?key="
+                  + key +"&cx=" + shopzillaSearchID + "&q="
                   + query+ "&alt=json");
          }
             
