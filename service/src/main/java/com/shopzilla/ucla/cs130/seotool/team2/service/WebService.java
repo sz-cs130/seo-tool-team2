@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WebService {
+   private static final int numresults = 3;
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
    private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
    private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
@@ -19,7 +20,7 @@ public class WebService {
    public static WebPage[] service(String query, String targetsite){
       //Jonathan's code here
       
-      String [] links = new String[3];
+      String [] links = new String[numresults];
       String targetlink = null;
      
       try{
@@ -69,7 +70,7 @@ public class WebService {
             links[j] = temp.getString("link");
             // links size counter
             j++;
-            if (j >= 3){
+            if (j >= numresults){
                break;
             }
          }
