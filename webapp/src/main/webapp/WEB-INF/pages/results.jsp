@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>Results for '${query}'</h1>
-	<a href="/seotool-team2-webapp/">Search Again</a>
+	<a href="/">Search Again</a>
 	${output}
 </body>
 </html>

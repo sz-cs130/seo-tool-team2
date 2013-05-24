@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 //@RequestMapping("/form")
 public class MainController {
    
-   @RequestMapping("/")
+   @RequestMapping("*")
    public String welcome(){    
       return "index";
    }
