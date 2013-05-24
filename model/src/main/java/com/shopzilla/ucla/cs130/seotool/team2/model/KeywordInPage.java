@@ -31,7 +31,7 @@ public class KeywordInPage extends Metric {
 	}
 	
 	public String returnResults() {
-		String output ="<li><h3>KeywordFrequency</h3>";
+		String output ="<li><h3>Keyword Frequency</h3>";
 		int i;
 		for(i = 0; i < 4; i++) {
 			output += results[i] + " occurances in result #" + i + " (" + pages[i].get_url() +")<br>";
