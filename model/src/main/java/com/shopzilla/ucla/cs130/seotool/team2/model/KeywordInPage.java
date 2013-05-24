@@ -31,12 +31,12 @@ public class KeywordInPage extends Metric {
 	}
 	
 	public String returnResults() {
-		String output ="<ul><li><h3>KeywordFrequency</h3>";
+		String output ="<li><h3>KeywordFrequency</h3>";
 		int i;
 		for(i = 0; i < 4; i++) {
 			output += results[i] + " occurances in result #" + i + " (" + pages[i].get_url() +")<br>";
 		}
-		output += "</li></ul>";
+		output += "</li>";
 		return output;
 	}
 }

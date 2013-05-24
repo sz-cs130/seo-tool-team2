@@ -37,26 +37,28 @@ public class WebApp {
 	public String returnResults() {
 		Iterator<Metric> it = metricList.iterator();
 		Metric tm;
-		String output = "";
+		String output = "<ul>";
 		
 		while(it.hasNext()) {
 			tm = it.next();
 			output += tm.returnResults();
 		}
 		
+		output += "</ul>";
 		return output;
 	}
 
 	public String returnRecomendations() {
 		Iterator<Metric> it = metricList.iterator();
 		Metric tm;
-		String output = "";
+		String output = "<ul>";
 		
 		while(it.hasNext()) {
 			tm = it.next();
 			output += tm.returnRecomendations();
 		}
 		
+		output += "</ul>";
 		return output;
 	}
 }
