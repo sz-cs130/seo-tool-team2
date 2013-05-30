@@ -7,11 +7,24 @@
 			$('body').fadeIn();
 		});
 	</script>
+	<link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
+	<link href="resources/css/search.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-	<h1>Results for '${query}'</h1>
-	<a href="/">Search Again</a>
-	${output}
 
+<body>
+<div id="body-container">
+ 	<div id="title">
+        	<img src="resources/images/sz_logo.jpeg" width="200" height="50" 
+			style="float:left; margin-left:50px; margin-right:15px; margin-top:12px;"/>
+        	<h1>Search Engine Optimization Tool</h1> 
+        </div>
+
+	<div class="body-content">
+		<h1 style="margin-top:0px;">Results for '${query}'</h1>
+		<a href="/">Search Again</a>
+		${output}
+	</div>
+</div>
 </body>
+
 </html>
