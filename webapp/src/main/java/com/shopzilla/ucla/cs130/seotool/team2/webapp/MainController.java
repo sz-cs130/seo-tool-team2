@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 //@RequestMapping("/form")
 public class MainController {
    
-   @RequestMapping("/")
+   @RequestMapping("*")
    public String welcome(){    
       return "index";
    }
@@ -23,7 +23,13 @@ public class MainController {
       // calls the webservice
       WebPage [] webpages = WebService.service(query, targetsite);
       // WebApp gets called here
-      model.addAttribute("content", webpages[0].get_content());
+	  WebApp app = new WebApp(webpages); 
+	  
+	  app.run();
+	  String output = app.returnResults();
+	   
+      model.addAttribute("query", query);
+      model.addAttribute("output", output);
       
       return "results";
    }
