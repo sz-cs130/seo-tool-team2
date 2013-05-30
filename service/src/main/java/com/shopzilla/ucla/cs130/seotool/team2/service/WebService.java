@@ -13,9 +13,9 @@ import org.json.JSONObject;
 public class WebService {
    private static final int numResults = 3;
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
-   private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
+   //private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
    private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
-   private static final String shopzillaSearchID = "013100502047583691894:9ncazeorv5y";
+   //private static final String shopzillaSearchID = "013100502047583691894:9ncazeorv5y";
    // method for them to call
    public static WebPage[] service(String query, String targetsite){
       //Jonathan's code here
@@ -89,6 +89,7 @@ public class WebService {
          
          // ------now get the target link link------------
          if(!done){
+            /*
          // get a new StringBuilder so garbage isn't collected
             build = new StringBuilder();
          
@@ -124,6 +125,15 @@ public class WebService {
             items = results.getJSONArray("items");
             temp = items.getJSONObject(0);
             pages[0].set_url(temp.getString("link"));
+            */
+            if(targetsite.contains("bizrate")){
+               String targeturl = "www.bizrate.com/classify?search_box=1&keyword=" + query;
+               pages[0].set_url(targeturl);
+            }
+            else if(targetsite.contains("shopzilla")){
+               String targeturl = "www.shopzilla.com/search?seach_box=1&sfsk=0&cat_id=1&keyword=" + query;
+               pages[0].set_url(targeturl);
+            }
          }
          // works on local machine up to here
          
