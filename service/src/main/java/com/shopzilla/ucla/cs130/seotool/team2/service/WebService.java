@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WebService {
-   private static final int numresults = 3;
+   private static final int numResults = 3;
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
    private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
    private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
@@ -21,8 +21,8 @@ public class WebService {
       //Jonathan's code here
       
       
-      WebPage[] pages = new WebPage[numresults + 1];
-      for(int i = 0; i < numresults + 1; i++){
+      WebPage[] pages = new WebPage[numResults + 1];
+      for(int i = 0; i < numResults + 1; i++){
          pages[i] = new WebPage();
       }
       boolean done = false;
@@ -82,7 +82,7 @@ public class WebService {
             pages[j].set_rank(i+1);
             // links size counter
             j++;
-            if (j == numresults){
+            if (j == numResults){
                break;
             }
          }
