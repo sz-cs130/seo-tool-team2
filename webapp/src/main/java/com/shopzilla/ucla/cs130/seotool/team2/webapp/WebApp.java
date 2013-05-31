@@ -22,6 +22,9 @@ public class WebApp {
 		
 		tm = new KeywordInPage();
 		metricList.add(tm);
+		
+		tm = new TitleIsBrief();
+		metricList.add(tm);
 	}
 	
 	public void run() {
