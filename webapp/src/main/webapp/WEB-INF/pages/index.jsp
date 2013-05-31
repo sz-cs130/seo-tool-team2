@@ -12,6 +12,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
 	<link href="resources/css/search.css" rel="stylesheet" type="text/css" />
 
+	<title>Shopzilla - SEO Tool</title>
 </head>
 
 <body>
@@ -23,7 +24,6 @@
 			style="float:left; margin-left:50px; margin-right:15px; margin-top:12px;"/>
         	<h1>Search Engine Optimization Tool</h1> 
         </div>
-        
         <div id="form" class="body-content">
             Enter a keywoard and domain below to analyze pages.<br /><br />
 
@@ -39,9 +39,7 @@
               	</p>
             </form>
     	</div>
-
 </div>
-
 	<script>
 		$(function() {
 			$('#submit').click(function() {
