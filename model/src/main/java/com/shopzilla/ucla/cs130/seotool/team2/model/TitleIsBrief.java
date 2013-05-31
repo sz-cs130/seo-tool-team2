@@ -30,12 +30,16 @@ public class TitleIsBrief extends Metric {
 	}
 	
 	public String returnResults() {
-		String output ="<li><h3>Title Is Brief</h3>";
+		String output ="<li><h3>Title Brevity</h3>";
+		output += "<table border=\"1\"><tr><th>Site</th><th>Title Length (characters)</th></tr>";
+
 		int i;
-		for(i = 0; i < 4; i++) {
-			output += "result #" + i + " (" + pages[i].get_url() +") had title length " + results[i] + "<br>";
+		for(i = 0; i < 4; i++) 
+		{
+			output += "<tr><td style=\"text-align:left;\">" + pages[i].get_url() + "</td>";
+			output += "<td>" + results[i] + "</td>";
 		}
-		output += "</li>";
+		output += "</table></li>";
 		return output;
 	}
 	

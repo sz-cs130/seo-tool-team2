@@ -30,15 +30,22 @@ public class KeywordInURL extends Metric {
 	
 	public String returnResults() {
 		String output ="<li><h3>Keyword in URL</h3>";
+		output += "<table border=\"1\"><tr><th>Site</th><th>Keyword present in URL?</th></tr>";
+
 		int i;
-		for(i = 0; i < 4; i++) {
-			if(results[i]) {
-				output += "result #" + i + " (" + pages[i].get_url() +") keyword is PRESENT.<br>";
-			} else {
-				output += "result #" + i + " (" + pages[i].get_url() +") keyword is MISSING.<br>";
+		for(i = 0; i < 4; i++) 
+		{
+			output += "<tr><td style=\"text-align:left;\">" + pages[i].get_url() + "</td>";
+			if (results[i])
+			{
+				output += "<td>Yes</td>";
+			}
+			else
+			{
+				output += "<td>No</td>";
 			}
 		}
-		output += "</li>";
+		output += "</table></li>";
 		return output;
 	}
 	

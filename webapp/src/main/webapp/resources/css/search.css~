@@ -7,6 +7,24 @@ h1 {
 	font-size:20px;
 	font-weight:1000;
 }
+h3 {
+	font-size:16px;
+	padding:0px;
+}
+table, th, td {
+	border:1px solid black;
+	text-align:center;
+	vertical-align:bottom;
+	border-collapse:collapse;
+	font-size:10px;
+}
+th {
+	background-color:#104BA9;
+	color:#FFFFFF;
+}
+tr:hover {
+	background:#CCCCCC;
+}
 #body-container {
 	width:550px;
 	margin:0 auto;
@@ -25,7 +43,8 @@ h1 {
 .body-content {
 	position:relative;
 	padding-top:45px;
-	width:500px;
+	padding-bottom:30px;
+	width:475px;
 	min-height:300px;
 	margin:0 auto;
 	overflow:hidden;
