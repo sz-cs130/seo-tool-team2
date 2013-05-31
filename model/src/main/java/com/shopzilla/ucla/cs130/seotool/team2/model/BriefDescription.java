@@ -16,7 +16,7 @@ public class BriefDescription extends Metric
     results = new String[4];
   }
 
-  public void run(Webpage[] webpages)
+  public void run(WebPage[] webpages)
   {
     int i;
     pages = webpages;
