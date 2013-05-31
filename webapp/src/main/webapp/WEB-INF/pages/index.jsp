@@ -12,18 +12,18 @@
 	<link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
 	<link href="resources/css/search.css" rel="stylesheet" type="text/css" />
 
+	<title>Shopzilla - SEO Tool</title>
 </head>
 
 <body>
 
-<div id="body-container">
+<div id="body-container" style="height:350px;">
 
         <div id="title">
         	<img src="resources/images/sz_logo.jpeg" width="200" height="50" 
 			style="float:left; margin-left:50px; margin-right:15px; margin-top:12px;"/>
         	<h1>Search Engine Optimization Tool</h1> 
         </div>
-        
         <div id="form" class="body-content">
             Enter a keywoard and domain below to analyze pages.<br /><br />
 
@@ -39,9 +39,7 @@
               	</p>
             </form>
     	</div>
-
 </div>
-
 	<script>
 		$(function() {
 			$('#submit').click(function() {
@@ -50,6 +48,9 @@
 					var newText = '<center><h2>Loading...</h2>' +
 							'<p>Please wait while we analyze <br&#x2F>' +
 							'the targeted domain and keyword.</p></center>';
+					$('#body-container').animate({
+						height: '250px'
+					} , 1000);
 					$('#form').html(newText);
 					$('#form').fadeIn();
 				});

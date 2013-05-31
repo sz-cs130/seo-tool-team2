@@ -42,9 +42,8 @@ tr:hover {
 .body-content {
 	position:relative;
 	padding-top:45px;
-	padding-bottom:30px;
+	padding-bottom: 45px;
 	width:475px;
-	min-height:300px;
 	margin:0 auto;
 	overflow:hidden;
 	font-size:12px;

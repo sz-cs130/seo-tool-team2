@@ -20,7 +20,6 @@ table, th, td {
 }
 th {
 	background-color:#104BA9;
-	color:#FFFFFF;
 }
 tr:hover {
 	background:#CCCCCC;
@@ -43,9 +42,12 @@ tr:hover {
 .body-content {
 	position:relative;
 	padding-top:45px;
+<<<<<<< HEAD
 	padding-bottom:30px;
+=======
+	padding-bottom: 45px;
+>>>>>>> d0370cc813dbe00d8d0b6fe9e58ebce90d0e57cb
 	width:475px;
-	min-height:300px;
 	margin:0 auto;
 	overflow:hidden;
 	font-size:12px;
