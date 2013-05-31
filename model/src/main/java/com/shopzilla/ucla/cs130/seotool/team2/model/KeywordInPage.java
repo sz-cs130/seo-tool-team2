@@ -19,7 +19,7 @@ public class KeywordInPage extends Metric {
 	     {
 	       pages = webpages;
 	       String pattern = webpages[i].get_keyword(); // the pattern is the keyword
-	       Pattern pat = Pattern.compile(pattern); // create the pattern object
+	       Pattern pat = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE); // create the pattern object
 	       Matcher mat = pat.matcher(webpages[i].get_content()); // create the matcher object
 	       int count = 0; // keyword count
 	       while(mat.find())

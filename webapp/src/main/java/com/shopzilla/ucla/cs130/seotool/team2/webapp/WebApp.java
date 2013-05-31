@@ -23,14 +23,18 @@ public class WebApp {
 		tm = new KeywordInPage();
 		metricList.add(tm);
 		
+		tm = new KeywordInURL();
+		metricList.add(tm);
+		
+		tm = new KeywordInTitle();
+		metricList.add(tm);
+		
 		tm = new TitleIsBrief();
 		metricList.add(tm);
 		
 		//tm = new BriefDescription();
 		//metricList.add(tm);
 		
-		tm = new KeywordInURL();
-		metricList.add(tm);
 	}
 	
 	public void run() {

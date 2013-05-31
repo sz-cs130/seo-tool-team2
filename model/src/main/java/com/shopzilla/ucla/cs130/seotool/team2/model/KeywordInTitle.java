@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class KeywordInURL extends Metric {
+public class KeywordInTitle extends Metric {
 	public boolean[] results;
 	WebPage[] pages;
 	
-	public KeywordInURL() {
+	public KeywordInTitle() {
 		results = new boolean[4];
 	}
 	
@@ -18,18 +18,29 @@ public class KeywordInURL extends Metric {
 	     for(i = 0; i < 3+1; i++)
 	     {
 	       pages = webpages;
-	       Pattern pat = Pattern.compile(webpages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
-	       Matcher mat = pat.matcher(webpages[i].get_url()); // create the matcher object
+	       String title = "four";
+	       // find the title
+	       Pattern pat = Pattern.compile(".*<head>.*<title>(.*)</title>.*</head>.*", Pattern.CASE_INSENSITIVE);
+	       Matcher mat = pat.matcher(webpages[i].get_content()); // create the matcher object
 	       if(mat.find()) {
-	    	   results[i] = true;
+	    	   // find the keyword in the title
+	    	   title = mat.group(1);
+	    	   pat = Pattern.compile(webpages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
+	    	   mat = pat.matcher(title);
+	    	   if(mat.find())
+	    	   {
+	    		   results[i] = true;
+	    	   } else {
+	    		   results[i] = false;
+	    	   }
 	       } else {
 	    	   results[i] = false;
-	       }
-	     } 
+	       } 
+	     }
 	}
 	
 	public String returnResults() {
-		String output ="<li><h3>Keyword in URL</h3>";
+		String output = "<li><h3>Ketword in Title</h3>";
 		int i;
 		for(i = 0; i < 4; i++) {
 			if(results[i]) {
