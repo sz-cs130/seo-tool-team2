@@ -127,11 +127,11 @@ public class WebService {
             pages[0].set_url(temp.getString("link"));
             */
             if(targetsite.contains("bizrate")){
-               String targeturl = "www.bizrate.com/classify?search_box=1&keyword=" + query;
+               String targeturl = "http://www.bizrate.com/classify?search_box=1&keyword=" + query;
                pages[0].set_url(targeturl);
             }
             else if(targetsite.contains("shopzilla")){
-               String targeturl = "www.shopzilla.com/search?seach_box=1&sfsk=0&cat_id=1&keyword=" + query;
+               String targeturl = "http://www.shopzilla.com/search?seach_box=1&sfsk=0&cat_id=1&keyword=" + query;
                pages[0].set_url(targeturl);
             }
          }
