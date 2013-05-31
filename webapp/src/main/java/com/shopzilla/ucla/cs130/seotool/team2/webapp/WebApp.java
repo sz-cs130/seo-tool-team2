@@ -28,6 +28,9 @@ public class WebApp {
 		
 		//tm = new BriefDescription();
 		//metricList.add(tm);
+		
+		tm = new KeywordInURL();
+		metricList.add(tm);
 	}
 	
 	public void run() {
