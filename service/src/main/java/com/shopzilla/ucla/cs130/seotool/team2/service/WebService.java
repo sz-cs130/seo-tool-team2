@@ -82,7 +82,7 @@ public class WebService {
             pages[j].set_rank(i+1);
             // links size counter
             j++;
-            if (j == numResults){
+            if (j == numResults + 1){
                break;
             }
          }
