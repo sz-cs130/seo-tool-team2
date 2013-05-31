@@ -41,13 +41,9 @@ public class KeywordInTitle extends Metric {
 	}
 	
 	public String returnResults() {
-<<<<<<< HEAD
 		String output ="<li><h3>Keyword in Title</h3>";
 		output += "<table border=\"1\"><tr><th>Site</th><th>Keyword present in title?</th></tr>";
 
-=======
-		String output = "<li><h3>Keyword in Title</h3>";
->>>>>>> d0370cc813dbe00d8d0b6fe9e58ebce90d0e57cb
 		int i;
 		for(i = 0; i < 4; i++) 
 		{
