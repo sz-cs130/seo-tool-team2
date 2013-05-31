@@ -24,7 +24,7 @@ h1 {
 }
 .body-content {
 	position:relative;
-	top:45px;
+	padding-top:45px;
 	width:500px;
 	min-height:300px;
 	margin:0 auto;
