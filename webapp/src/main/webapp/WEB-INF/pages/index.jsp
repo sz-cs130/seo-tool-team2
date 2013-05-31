@@ -17,7 +17,7 @@
 
 <body>
 
-<div id="body-container" style="height:350px;">
+<div id="body-container" style="height:365px;">
 
         <div id="title">
         	<img src="resources/images/sz_logo.jpeg" width="200" height="50" 
@@ -49,7 +49,7 @@
 							'<p>Please wait while we analyze <br&#x2F>' +
 							'the targeted domain and keyword.</p></center>';
 					$('#body-container').animate({
-						height: '250px'
+						height: '265px'
 					} , 1000);
 					$('#form').html(newText);
 					$('#form').fadeIn();
