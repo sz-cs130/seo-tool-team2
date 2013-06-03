@@ -34,7 +34,9 @@
                   <input type="radio" name="targetsite" value="bizrate.com" 
 			checked="checked"/><em>bizrate.com</em><br />
                   <input type="radio" name="targetsite" value="shopzilla.com" />
-			<em>shopzilla.com</em><br /><br />
+			<em>shopzilla.com</em><br />
+			         OR<br />
+			         Specific url: <input type="text" name="targeturl" value="optional" /><br /><br />
                   <input id="submit" type="submit"  value="Submit"/><br />
               	</p>
             </form>

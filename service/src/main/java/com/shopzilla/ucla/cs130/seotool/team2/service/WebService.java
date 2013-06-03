@@ -17,15 +17,36 @@ public class WebService {
    private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
    //private static final String shopzillaSearchID = "013100502047583691894:9ncazeorv5y";
    // method for them to call
-   public static WebPage[] service(String query, String targetsite){
+   public static WebPage[] service(String query, String targetsite, String targeturl){
       //Jonathan's code here
-      
+     
       
       WebPage[] pages = new WebPage[numResults + 1];
       for(int i = 0; i < numResults + 1; i++){
          pages[i] = new WebPage();
       }
-      boolean done = false;
+      // bool for if the target url has been set yet
+      boolean done;
+      if(targeturl == "optional" || targeturl == null || targeturl== ""){
+         done = false;
+      }
+      else{
+         if(!targeturl.contains(".com") && 
+               !targeturl.contains(".org")&& 
+               !targeturl.contains(".net")&& 
+               !targeturl.contains(".gov")){
+            done = false;
+         }
+         else{
+            if(!(targeturl.contains("www."))){
+               targeturl = "www." + targeturl;
+            }
+            if(!(targeturl.contains("http://")))
+               targeturl = "http://" + targeturl;
+            pages[0].set_url(targeturl);
+            done = true;
+         }
+      }
      
       try{
          String line;
@@ -76,63 +97,27 @@ public class WebService {
                done = true;
                continue;
             }
-            
+            if (j > numResults){
+               continue;
+            }
             // grab the link and store into the array of links
             pages[j].set_url(tempurl);
             pages[j].set_rank(i+1);
             // links size counter
             j++;
-            if (j == numResults + 1){
-               break;
-            }
+            
          }
          
          // ------now get the target link link------------
          if(!done){
-            /*
-         // get a new StringBuilder so garbage isn't collected
-            build = new StringBuilder();
-         
+       
             if(targetsite.contains("bizrate")){
-               url = new URL("https://www.googleapis.com/customsearch/v1?key="
-                  + key +"&cx=" + bizSearchID + "&q="
-                  + query+ "&alt=json");
-            }
-            else{
-               url = new URL("https://www.googleapis.com/customsearch/v1?key="
-                  + key +"&cx=" + shopzillaSearchID + "&q="
-                  + query+ "&alt=json");
-            }
-            
-            // create the connection
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept",  "application/json");
-            
-         // grab the reply
-            br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-            while((line = br.readLine()) != null){
-               build.append(line);
-            }
-            
-            // close the reader
-            br.close();
-            
-            // create the JSONObject
-            results = new JSONObject(build.toString());
-            
-            // get the JSON element items
-            items = results.getJSONArray("items");
-            temp = items.getJSONObject(0);
-            pages[0].set_url(temp.getString("link"));
-            */
-            if(targetsite.contains("bizrate")){
-               String targeturl = "http://www.bizrate.com/classify?search_box=1&keyword=" + query;
-               pages[0].set_url(targeturl);
+               String l = "http://www.bizrate.com/classify?search_box=1&keyword=" + query;
+               pages[0].set_url(l);
             }
             else if(targetsite.contains("shopzilla")){
-               String targeturl = "http://www.shopzilla.com/search?seach_box=1&sfsk=0&cat_id=1&keyword=" + query;
-               pages[0].set_url(targeturl);
+               String l = "http://www.shopzilla.com/search?seach_box=1&sfsk=0&cat_id=1&keyword=" + query;
+               pages[0].set_url(l);
             }
          }
          // works on local machine up to here
