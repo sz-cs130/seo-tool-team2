@@ -31,13 +31,32 @@ public class WebService implements Runnable{
    // method for them to call
    public static WebPage[] service(String query, String targetsite, String targeturl){
       //Jonathan's code here
-     
       
+      //query.replaceAll("\\s", "+");
+      String delims = "\\s";
+      String[] tokens = query.split(delims);
+      String urlquery = "";
+      for(int i = 0; i < tokens.length; i++){
+         urlquery += tokens[i];
+         if((i+1) < tokens.length)
+            urlquery += "+";
+      }
+      /*
+      System.out.println("------------------------------------------------------------------------");
+      System.out.println("------------------------------------------------------------------------");
+      System.out.println("------------------------------------------------------------------------");
+      System.out.println("------------------------------------------------------------------------");
+      System.out.println("In webservice, target query is: " + query);
+      System.out.println("------------------------------------------------------------------------");
+      System.out.println("------------------------------------------------------------------------");
+      System.out.println("------------------------------------------------------------------------");
+      System.out.println("------------------------------------------------------------------------");
+      */
       pages = new WebPage[numResults + 1];
       for(int i = 0; i < numResults + 1; i++){
          pages[i] = new WebPage();
       }
-      // bool for if the target url has been set yet
+      // boolean for if the target url has been set yet
       boolean done;
       if(targeturl == "optional" || targeturl == null || targeturl== ""){
          done = false;
@@ -66,7 +85,7 @@ public class WebService implements Runnable{
          // form the url for the google query
          URL url = new URL("https://www.googleapis.com/customsearch/v1?key="
             + key +"&cx=" + liveSearchID + "&q="
-            + query+ "&alt=json");
+            + urlquery+ "&alt=json");
          
          // create the connection
          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -124,11 +143,11 @@ public class WebService implements Runnable{
          if(!done){
        
             if(targetsite.contains("bizrate")){
-               String l = "http://www.bizrate.com/classify?search_box=1&keyword=" + query;
+               String l = "http://www.bizrate.com/classify?search_box=1&keyword=" + urlquery;
                pages[0].set_url(l);
             }
             else if(targetsite.contains("shopzilla")){
-               String l = "http://www.shopzilla.com/search?seach_box=1&sfsk=0&cat_id=1&keyword=" + query;
+               String l = "http://www.shopzilla.com/search?seach_box=1&sfsk=0&cat_id=1&keyword=" + urlquery;
                pages[0].set_url(l);
             }
          }
@@ -153,7 +172,7 @@ public class WebService implements Runnable{
        * add handling of more than top 3 pages
        * 
        */
-      final long startTime = System.currentTimeMillis();
+      //final long startTime = System.currentTimeMillis();
       try {
         
          WebService[] t = new WebService[pages.length-1];
@@ -198,8 +217,8 @@ public class WebService implements Runnable{
     	  e.printStackTrace();
       }
       
-      final long endTime = System.currentTimeMillis();
-      System.out.println("Time taken: " + (endTime - startTime));
+      //final long endTime = System.currentTimeMillis();
+      //System.out.println("Time taken: " + (endTime - startTime));
       return pages;
    }
    

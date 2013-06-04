@@ -1,7 +1,5 @@
 package com.shopzilla.ucla.cs130.seotool.team2.model;
 
-import com.shopzilla.ucla.cs130.seotool.team2.model.*;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

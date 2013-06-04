@@ -1,7 +1,5 @@
 package com.shopzilla.ucla.cs130.seotool.team2.model;
 
-import com.shopzilla.ucla.cs130.seotool.team2.model.*;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,9 +13,14 @@ public class KeywordInURL extends Metric {
 	
 	public void run(WebPage[] webpages) {
 	     int i;
-	     for(i = 0; i < 3+1; i++)
+	     pages = webpages;
+	     for(i = 0; i < webpages.length; i++)
 	     {
-	       pages = webpages;
+	        System.out.println(webpages[0].get_url());
+	        System.out.println(webpages[1].get_url());
+	        System.out.println(webpages[2].get_url());
+	        System.out.println(webpages[3].get_url());
+	       //pages = webpages;
 	       Pattern pat = Pattern.compile(webpages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
 	       Matcher mat = pat.matcher(webpages[i].get_url()); // create the matcher object
 	       if(mat.find()) {

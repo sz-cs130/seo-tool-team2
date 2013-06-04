@@ -22,6 +22,7 @@ public class MainController {
    public String mirrorGet(String query, String targetsite, String targeturl, Model model){
       // calls the webservice
       WebPage [] webpages = WebService.service(query, targetsite, targeturl);
+      
       // WebApp gets called here
 	  WebApp app = new WebApp(webpages); 
 	  
