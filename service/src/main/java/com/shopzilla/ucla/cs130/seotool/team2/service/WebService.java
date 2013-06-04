@@ -1,7 +1,7 @@
 package com.shopzilla.ucla.cs130.seotool.team2.service;
 
 import com.shopzilla.ucla.cs130.seotool.team2.model.*;
-//import com.google.api.services.customsearch.*;
+
 import java.lang.String;
 import java.net.*;
 import java.io.*;
@@ -10,18 +10,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebService {
+
+
+public class WebService implements Runnable{
    private static final int numResults = 3;
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
    //private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
    private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
    //private static final String shopzillaSearchID = "013100502047583691894:9ncazeorv5y";
+   private static WebPage[] pages;
+   private Thread t;
+   
+   WebService(int i){
+      t = new Thread(this, Integer.toString(i));
+      t.start();
+   }
+   
+   public Thread get_thread() {return t;}
+   
    // method for them to call
    public static WebPage[] service(String query, String targetsite, String targeturl){
       //Jonathan's code here
      
       
-      WebPage[] pages = new WebPage[numResults + 1];
+      pages = new WebPage[numResults + 1];
       for(int i = 0; i < numResults + 1; i++){
          pages[i] = new WebPage();
       }
@@ -141,41 +153,90 @@ public class WebService {
        * add handling of more than top 3 pages
        * 
        */
-      
+      final long startTime = System.currentTimeMillis();
       try {
-    	  for(int i = 0; i < pages.length; i++) {
-    		  
-    		  //setup connection
-    		  URL url = new URL(pages[i].get_url());
-    		  HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-    		  conn.setRequestMethod("GET");
-    		  BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-    		  
-    		  String content = "";
-    		  String temp;
-    		  
-    		  //read the contents of the page
-    		  while( (temp = rd.readLine()) != null) {
-    			  content += temp;
-    		  }
-    		  
-    		  //close buffered reader
-    		  rd.close();
-    		  
-    		  //fill our the WebPage object with content, keyword, and size
-    		  pages[i].set_content(content);
-    		  pages[i].set_keyword(query);
-    		  pages[i].set_size(content.length());
-    		  //add ranking, however need to clarify which ranking it is.
-    		  
+        
+         WebService[] t = new WebService[pages.length-1];
+    	   for(int i = 0; i < (pages.length-1); i++) {
+    	      pages[i+1].set_keyword(query);
+    	      t[i] = new WebService(i+1);
+    	     
+    		
+    	   }
+    	   URL url = new URL(pages[0].get_url());
+    	   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    	   conn.setRequestMethod("GET");
+    	   BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+       
+    	   String content = "";
+    	   String temp;
+       
+    	   //read the contents of the page
+    	   while( (temp = rd.readLine()) != null) {
+    	      content += temp;
+    	   }
+       
+    	   //close buffered reader
+    	   rd.close();
+       
+    	   //fill our the WebPage object with content, keyword, and size
+       
+    	   pages[0].set_content(content);
+    	   pages[0].set_keyword(query);
+    	   pages[0].set_size(content.length());
+    	  
+    	  
+    	  // Synchronize Threads
+    	  
+    	  for(int i = 0; i < pages.length-1; i++) {
+    	     t[i].get_thread().join();
     	  }
+    	  
+    	  
       } catch (Exception e) { //refine the possible error messages
     	  System.err.println("Error during webpage crawling");
     	  e.printStackTrace();
       }
       
-      
+      final long endTime = System.currentTimeMillis();
+      System.out.println("Time taken: " + (endTime - startTime));
       return pages;
    }
+   
+   public void run() {
+      // TODO Auto-generated method stub
+      try {
+    
+          int j = Integer.parseInt(Thread.currentThread().getName());
+            //setup connection
+          URL url = new URL(pages[j].get_url());
+          HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+          conn.setRequestMethod("GET");
+          BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            
+          String content = "";
+          String temp;
+            
+            //read the contents of the page
+          while( (temp = rd.readLine()) != null) {
+             content += temp;
+          }
+            
+          //close buffered reader
+          rd.close();
+            
+          //fill our the WebPage object with content, keyword, and size
+          pages[j].set_content(content);
+          //pages[j].set_keyword(query);
+          pages[j].set_size(content.length());
+          //add ranking, however need to clarify which ranking it is.
+          //Thread.currentThread().join();
+        
+       } catch (Exception e) { //refine the possible error messages
+         System.err.println("Error during webpage crawling");
+         e.printStackTrace();
+       }
+   }
+   
 
 }
