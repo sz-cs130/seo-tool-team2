@@ -7,27 +7,32 @@ public class KeywordInURL extends Metric {
 	public boolean[] results;
 	WebPage[] pages;
 	
-	public KeywordInURL() {
-		results = new boolean[4];
-	}
 	
 	public void run(WebPage[] webpages) {
 	     int i;
 	     pages = webpages;
+	     results = new boolean[webpages.length];
 	     for(i = 0; i < webpages.length; i++)
 	     {
-	        System.out.println(webpages[0].get_url());
-	        System.out.println(webpages[1].get_url());
-	        System.out.println(webpages[2].get_url());
-	        System.out.println(webpages[3].get_url());
 	       //pages = webpages;
 	       Pattern pat = Pattern.compile(webpages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
 	       Matcher mat = pat.matcher(webpages[i].get_url()); // create the matcher object
 	       if(mat.find()) {
 	    	   results[i] = true;
+	    	   continue;
 	       } else {
 	    	   results[i] = false;
 	       }
+	       for(int j = 0; j<webpages[i].get_keytokens().length; j++){
+             String pattern2 = webpages[i].get_keytokens()[j];
+             Pattern pat2 = Pattern.compile(pattern2, Pattern.CASE_INSENSITIVE);
+             Matcher mat2 = pat2.matcher(webpages[i].get_content());
+             // get count of each token word
+             if(mat2.find()){
+                results[i] = true;
+                break;
+             }
+          }
 	     } 
 	}
 	
@@ -36,7 +41,7 @@ public class KeywordInURL extends Metric {
 		output += "<table border=\"1\"><tr><th>Site</th><th>Keyword present in URL?</th></tr>";
 
 		int i;
-		for(i = 0; i < 4; i++) 
+		for(i = 0; i < pages.length; i++) 
 		{
 			output += "<tr><td style=\"text-align:left;\">" + pages[i].get_url() + "</td>";
 			if (results[i])

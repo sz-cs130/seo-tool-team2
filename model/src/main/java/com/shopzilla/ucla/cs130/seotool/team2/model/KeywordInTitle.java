@@ -9,15 +9,13 @@ public class KeywordInTitle extends Metric {
 	public boolean[] results;
 	WebPage[] pages;
 	
-	public KeywordInTitle() {
-		results = new boolean[4];
-	}
 	
 	public void run(WebPage[] webpages) {
 	     int i;
-	     for(i = 0; i < 3+1; i++)
+	     pages = webpages;
+	     results = new boolean[webpages.length];
+	     for(i = 0; i < webpages.length; i++)
 	     {
-	       pages = webpages;
 	       // Placeholder, if everything's 4s then something went wrong
 	       String title = "fore";
 	       // find the title
@@ -34,6 +32,16 @@ public class KeywordInTitle extends Metric {
 	    	   } else {
 	    		   results[i] = false;
 	    	   }
+	    	  for(int j = 0; j<webpages[i].get_keytokens().length; j++){
+	             String pattern2 = webpages[i].get_keytokens()[j];
+	             Pattern pat2 = Pattern.compile(pattern2, Pattern.CASE_INSENSITIVE);
+	             Matcher mat2 = pat2.matcher(webpages[i].get_content());
+	             // get count of each token word
+	             if(mat2.find()){
+	                results[i] = true;
+	                break;
+	             }
+	          }
 	       } else {
 	    	   results[i] = false;
 	       } 

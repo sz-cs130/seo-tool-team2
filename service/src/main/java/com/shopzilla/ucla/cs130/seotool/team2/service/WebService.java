@@ -55,6 +55,8 @@ public class WebService implements Runnable{
       pages = new WebPage[numResults + 1];
       for(int i = 0; i < numResults + 1; i++){
          pages[i] = new WebPage();
+         pages[i].set_keyword(query);
+         pages[i].set_keytokens(tokens);
       }
       // boolean for if the target url has been set yet
       boolean done;
@@ -177,10 +179,7 @@ public class WebService implements Runnable{
         
          WebService[] t = new WebService[pages.length-1];
     	   for(int i = 0; i < (pages.length-1); i++) {
-    	      pages[i+1].set_keyword(query);
     	      t[i] = new WebService(i+1);
-    	     
-    		
     	   }
     	   URL url = new URL(pages[0].get_url());
     	   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -201,7 +200,7 @@ public class WebService implements Runnable{
     	   //fill our the WebPage object with content, keyword, and size
        
     	   pages[0].set_content(content);
-    	   pages[0].set_keyword(query);
+    	   //pages[0].set_keyword(query);
     	   pages[0].set_size(content.length());
     	  
     	  
