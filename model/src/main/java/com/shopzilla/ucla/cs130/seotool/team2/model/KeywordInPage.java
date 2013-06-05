@@ -25,7 +25,7 @@ public class KeywordInPage extends Metric {
 	         count++;
 	       }
 	       // get the count of the keywords
-	       
+	       count2 = count;
 	       for(int j = 0; j<webpages[i].get_keytokens().length; j++){
 	          String pattern2 = webpages[i].get_keytokens()[j];
 	          Pattern pat2 = Pattern.compile(pattern2, Pattern.CASE_INSENSITIVE);

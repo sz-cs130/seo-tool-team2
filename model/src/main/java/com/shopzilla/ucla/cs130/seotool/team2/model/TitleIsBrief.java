@@ -9,15 +9,13 @@ public class TitleIsBrief extends Metric {
 	public int[] results;
 	WebPage[] pages;
 	
-	public TitleIsBrief() {
-		results = new int[4];
-	}
 	
 	public void run(WebPage[] webpages) {
 	     int i;
-	     for(i = 0; i < 3+1; i++)
+	     pages = webpages;
+	     results = new int[webpages.length];
+	     for(i = 0; i < webpages.length; i++)
 	     {
-	       pages = webpages;
 	       String title = "four";
 	       Pattern pat = Pattern.compile(".*<head>.*<title>(.*)</title>.*</head>.*");
 	       Matcher mat = pat.matcher(webpages[i].get_content()); // create the matcher object
@@ -34,7 +32,7 @@ public class TitleIsBrief extends Metric {
 		output += "<table border=\"1\"><tr><th>Site</th><th>Title Length (characters)</th></tr>";
 
 		int i;
-		for(i = 0; i < 4; i++) 
+		for(i = 0; i < pages.length; i++)
 		{
 			output += "<tr><td style=\"text-align:left;\">" + pages[i].get_url() + "</td>";
 			output += "<td>" + results[i] + "</td>";

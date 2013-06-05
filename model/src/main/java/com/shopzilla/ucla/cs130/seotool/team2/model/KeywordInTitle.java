@@ -53,7 +53,7 @@ public class KeywordInTitle extends Metric {
 		output += "<table border=\"1\"><tr><th>Site</th><th>Keyword present in title?</th></tr>";
 
 		int i;
-		for(i = 0; i < 4; i++) 
+		for(i = 0; i < pages.length; i++) 
 		{
 			output += "<tr><td style=\"text-align:left;\">" + pages[i].get_url() + "</td>";
 			if (results[i])

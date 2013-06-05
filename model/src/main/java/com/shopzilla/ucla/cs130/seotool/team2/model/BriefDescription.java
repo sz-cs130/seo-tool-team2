@@ -11,48 +11,54 @@ public class BriefDescription extends Metric
   public String[] results;
 
   // constructor
-  public BriefDescription()
-  {
-    results = new String[4];
-  }
+ 
 
   public void run(WebPage[] webpages)
   {
     int i;
     pages = webpages;
-    for(i = 0; i < 3+1; i++)
+    results = new String[webpages.length];
+    for(i = 0; i < webpages.length; i++)
     {
+      int start = 0; 
+      int end = 0; // the start and end index of the description
       String start_pattern = "<meta name=\"description\" content=\""; // the pattern is the description tag
       Pattern start_pat = Pattern.compile(start_pattern); // create the pattern object
       Matcher start_mat = start_pat.matcher(webpages[i].get_content()); // create the matcher object
+      
+      if(start_mat.find())
+         start = start_mat.end(); // the description starts right after the content="
 
-      String end_pattern = "\">"; // the description tag ends with this
+      String end_pattern = "\""; // the description tag ends with this
       Pattern end_pat = Pattern.compile(end_pattern); // create the end pattern object
       Matcher end_mat = end_pat.matcher(webpages[i].get_content()); // create the end matcher object
 
-      int start, end; // the start and end index of the description
-      start = start_mat.end(); // the description starts right after the content="
-      end = end_mat.start() - 1; // the description ends right before the ">
+      if(end_mat.find(start))
+         end = end_mat.start() - 1; // the description ends right before the ">
 
       int length = end - start; // the length of the description
+      // above yields negative results when printed, see below method for count
+      //String desc = webpages[i].get_content().substring(start, end+1);
 
-      if(15 >= length) // if length of description is less than or equal to 15
-        results[i] = "is"; // the description is brief
+      if(length == 0)
+       results[i] = "N/A";
       else
-        results[i] = "is not"; // the description is not brief
+        results[i] = Integer.toString(length); // the description is not brief
     }
   }
 
   public String returnResults()
   {
-    String output = "<ul><li><h3>DescriptionBriefness</h3>";
+    String output = "<li><h3>Description Brevity</h3>";
+    output += "<table border=\"1\"><tr><th>Site</th><th>Description Length (characters)</th></tr>";
     int i;
-    for(i = 0; i < 4; i++)
+    for(i = 0; i < pages.length; i++)
     {
-      output += "The description in result #" + i + " " + results[i] + " brief (" + pages[i].get_url() +")<br>";
+       output += "<tr><td style=\"text-align:left;\">" + pages[i].get_url() + "</td>";
+       output += "<td>" + results[i] + "</td>";
     }
 
-    output += "</li></ul>";
+    output += "</table></li>";
     return output;
   } 
 }

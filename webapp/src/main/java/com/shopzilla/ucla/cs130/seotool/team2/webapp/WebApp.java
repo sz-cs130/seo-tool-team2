@@ -32,8 +32,8 @@ public class WebApp {
 		tm = new TitleIsBrief();
 		metricList.add(tm);
 		
-		//tm = new BriefDescription();
-		//metricList.add(tm);
+		tm = new BriefDescription();
+		metricList.add(tm);
 		
 	}
 	
