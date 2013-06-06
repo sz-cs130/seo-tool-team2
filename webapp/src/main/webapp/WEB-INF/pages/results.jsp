@@ -23,6 +23,7 @@
 	<div class="body-content">
 		<h1 style="margin-top:0px;">Results for '${query}'</h1>
 		<a href="/">Search Again</a>
+		<a href="/recommend">Recommendations</a>
 		${output}
 	</div>
 </div>
