@@ -13,13 +13,13 @@ public class Metric {
 		return "this metric doesn't implement results!";
 	}
 	
-	public String returnRecomendations() {
+	public String returnRecommendations() {
 		return "this metric doesn't implement recomendations!";
 	}
 	
 	public String returnBoth() {
 		String results = returnResults();
-		results += returnRecomendations();
+		results += returnRecommendations();
 		return results;
 	}
 }

@@ -42,8 +42,8 @@ public class MainController {
    @RequestMapping(value="/recommend")
    public String recommend(Model model){
       // WebApp gets called here
-	  String output = app.returnRecomendations(); // Change this to returnBoth for easier debugging on a single page 
-     String query = webpages[0].get_keyword();
+	  String output = app.returnRecommendations(); // Change this to returnBoth for easier debugging on a single page 
+      String query = webpages[0].get_keyword();
 	  
       model.addAttribute("query", query);
       model.addAttribute("output", output);

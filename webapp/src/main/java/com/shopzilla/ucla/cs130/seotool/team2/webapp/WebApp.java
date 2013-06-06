@@ -61,14 +61,14 @@ public class WebApp {
 		return output;
 	}
 
-	public String returnRecomendations() {
+	public String returnRecommendations() {
 		Iterator<Metric> it = metricList.iterator();
 		Metric tm;
 		String output = "<ul>";
 		
 		while(it.hasNext()) {
 			tm = it.next();
-			output += tm.returnRecomendations();
+			output += tm.returnRecommendations();
 		}
 		
 		output += "</ul>";
