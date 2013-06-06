@@ -9,6 +9,7 @@
 	</script>
 	<link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
 	<link href="resources/css/search.css" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="resources/images/shopzilla.ico">
 	<title>Shopzilla - SEO Tool Results</title>
 </head>
 
