@@ -44,6 +44,9 @@ public class WebApp {
 		
 		tm = new DescriptionMatchesContent(webpages);
 		metricList.add(tm);
+
+		tm = new IncomingLinks();
+		metricList.add(tm);
 		
 	}
 	
