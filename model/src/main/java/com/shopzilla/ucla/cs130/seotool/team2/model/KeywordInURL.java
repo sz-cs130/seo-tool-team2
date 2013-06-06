@@ -15,18 +15,18 @@ public class KeywordInURL extends Metric {
 	     for(i = 0; i < webpages.length; i++)
 	     {
 	       //pages = webpages;
-	       Pattern pat = Pattern.compile(webpages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
-	       Matcher mat = pat.matcher(webpages[i].get_url()); // create the matcher object
+	       Pattern pat = Pattern.compile(pages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
+	       Matcher mat = pat.matcher(pages[i].get_url()); // create the matcher object
 	       if(mat.find()) {
 	    	   results[i] = true;
 	    	   continue;
 	       } else {
 	    	   results[i] = false;
 	       }
-	       for(int j = 0; j<webpages[i].get_keytokens().length; j++){
-             String pattern2 = webpages[i].get_keytokens()[j];
+	       for(int j = 0; j<pages[i].get_keytokens().length; j++){
+             String pattern2 = pages[i].get_keytokens()[j];
              Pattern pat2 = Pattern.compile(pattern2, Pattern.CASE_INSENSITIVE);
-             Matcher mat2 = pat2.matcher(webpages[i].get_content());
+             Matcher mat2 = pat2.matcher(pages[i].get_content());
              // get count of each token word
              if(mat2.find()){
                 results[i] = true;
