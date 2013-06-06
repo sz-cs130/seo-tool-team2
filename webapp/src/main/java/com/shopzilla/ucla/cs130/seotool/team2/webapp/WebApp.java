@@ -74,6 +74,20 @@ public class WebApp {
 		output += "</ul>";
 		return output;
 	}
+	
+	public String returnBoth() {
+		Iterator<Metric> it = metricList.iterator();
+		Metric tm;
+		String output = "<ul>";
+		
+		while(it.hasNext()) {
+			tm = it.next();
+			output += tm.returnBoth();
+		}
+		
+		output += "</ul>";
+		return output;
+	}
 }
 
 

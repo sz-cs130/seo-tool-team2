@@ -16,4 +16,10 @@ public class Metric {
 	public String returnRecomendations() {
 		return "this metric doesn't implement recomendations!";
 	}
+	
+	public String returnBoth() {
+		String results = returnResults();
+		results += returnRecomendations();
+		return results;
+	}
 }
