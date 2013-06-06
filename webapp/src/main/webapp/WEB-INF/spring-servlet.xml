@@ -12,9 +12,11 @@
  
     <context:component-scan base-package="com.shopzilla.ucla.cs130.seotool.team2.webapp" />
     <mvc:annotation-driven />
-     
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    
 </beans>

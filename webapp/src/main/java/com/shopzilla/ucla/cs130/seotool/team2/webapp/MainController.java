@@ -13,25 +13,42 @@ import org.springframework.ui.Model;
 //@RequestMapping("/form")
 public class MainController {
    
-   @RequestMapping("/")
+   WebApp app;
+   WebPage [] webpages;
+	
+   @RequestMapping("*")
    public String welcome(){    
       return "index";
    }
    
    @RequestMapping(value="/optimize", method=RequestMethod.GET)
-   public String mirrorGet(String query, String targetsite, Model model){
+   public String mirrorGet(String query, String targetsite, String targeturl, Model model){
       // calls the webservice
-      WebPage [] webpages = WebService.service(query, targetsite);
+      webpages = WebService.service(query, targetsite, targeturl);
+      
       // WebApp gets called here
-	  WebApp app = new WebApp(webpages); 
+	  app = new WebApp(webpages); 
 	  
 	  app.run();
-	  String output = app.returnResults();
+	  String output = app.returnResults(); // Change this to returnBoth for easier debugging on a single page
 	   
       model.addAttribute("query", query);
       model.addAttribute("output", output);
-      
+ 
+     
       return "results";
+   }
+   
+   @RequestMapping(value="/recommend")
+   public String recommend(Model model){
+      // WebApp gets called here
+	  String output = app.returnRecommendations(); // Change this to returnBoth for easier debugging on a single page 
+      String query = webpages[0].get_keyword();
+	  
+      model.addAttribute("query", query);
+      model.addAttribute("output", output);
+	  
+      return "recommendations";
    }
    
    //@RequestMapping(method = RequestMethod.GET)

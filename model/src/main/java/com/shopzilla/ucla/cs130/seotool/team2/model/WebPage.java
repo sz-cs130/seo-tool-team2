@@ -7,6 +7,7 @@ public class WebPage
   protected int size; // the length of the webpage
   protected int rank; // the ranking
   protected String keyword; // the keyword
+  protected String[] keytokens;
   protected String url;
 
   //============ METRICS ==================
@@ -22,6 +23,7 @@ public class WebPage
     this.rank = 0;
     this.keyword = "";
     this.url = null;
+    this.keytokens = null;
   }
   public WebPage(String content, int size, int rank, String keyword, String url)
   {
@@ -30,6 +32,7 @@ public class WebPage
     this.rank = rank;
     this.keyword = keyword;
     this.url = url;
+    this.keytokens = null;
   }
 
   public String get_content() { return content; }
@@ -37,7 +40,8 @@ public class WebPage
   public int get_rank() { return rank; }
   public String get_keyword() { return keyword; }
   public String get_url() {return url;}
-
+  public String[] get_keytokens(){ return keytokens;}
+  
   public void set_content( String in_content )
   {
     content = in_content;
@@ -65,6 +69,9 @@ public class WebPage
   }
   public void set_url(String url){
      this.url = url;
+  }
+  public void set_keytokens(String[] tokens){
+     keytokens = tokens;
   }
 }
 

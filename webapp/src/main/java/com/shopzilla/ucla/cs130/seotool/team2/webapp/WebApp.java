@@ -22,6 +22,19 @@ public class WebApp {
 		
 		tm = new KeywordInPage();
 		metricList.add(tm);
+		
+		tm = new KeywordInURL();
+		metricList.add(tm);
+		
+		tm = new KeywordInTitle();
+		metricList.add(tm);
+		
+		tm = new TitleIsBrief();
+		metricList.add(tm);
+		
+		tm = new BriefDescription();
+		metricList.add(tm);
+		
 	}
 	
 	public void run() {
@@ -48,14 +61,28 @@ public class WebApp {
 		return output;
 	}
 
-	public String returnRecomendations() {
+	public String returnRecommendations() {
 		Iterator<Metric> it = metricList.iterator();
 		Metric tm;
 		String output = "<ul>";
 		
 		while(it.hasNext()) {
 			tm = it.next();
-			output += tm.returnRecomendations();
+			output += tm.returnRecommendations();
+		}
+		
+		output += "</ul>";
+		return output;
+	}
+	
+	public String returnBoth() {
+		Iterator<Metric> it = metricList.iterator();
+		Metric tm;
+		String output = "<ul>";
+		
+		while(it.hasNext()) {
+			tm = it.next();
+			output += tm.returnBoth();
 		}
 		
 		output += "</ul>";
