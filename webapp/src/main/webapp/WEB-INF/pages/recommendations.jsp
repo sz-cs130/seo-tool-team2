@@ -1,10 +1,16 @@
 <html>
 <head>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$('body').css("display", "none");
 			$('body').fadeIn();
+			$('#back').button();
+			$('#back').click(function() {
+        		parent.history.back();
+        		return false;
+    		});
 		});
 	</script>
 	<link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
@@ -23,6 +29,7 @@
 	<div class="body-content">
 		<h1 style="margin-top:0px;">Recommendations for '${query}'</h1>
 		<a href="/">Search Again</a>
+		<a id="back" href="#">Back</a>
 		${output}
 	</div>
 </div>
