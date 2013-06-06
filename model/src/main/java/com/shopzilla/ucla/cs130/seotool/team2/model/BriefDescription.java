@@ -61,4 +61,26 @@ public class BriefDescription extends Metric
     output += "</table></li>";
     return output;
   } 
+  
+  public String returnRecommendations() {
+		int average = 0;
+		int weight = 5;
+		
+		for(int i = 1; i < pages.length; i++)
+		{
+			average += Integer.parseInt(results[i]);
+		}
+		average = average / (pages.length -1);
+		
+		String output ="<li><h3>Decription Brevity</h3>";
+		if(average < Integer.parseInt(results[0]) - weight) {
+			output += "<p><b>Top search results had shorter descriptions on average.  Try using a shorter page description.</b></p>";
+		} else if(average > Integer.parseInt(results[0]) + weight) {
+			output += "<p><b>Top search results had longer meta descriptions on average.  Try using a longer page description.</b></p>";
+		} else {
+			output += "<p>No recommendations for this metric.</p>";
+		}
+		output += "</li>";
+		return output;
+	}
 }

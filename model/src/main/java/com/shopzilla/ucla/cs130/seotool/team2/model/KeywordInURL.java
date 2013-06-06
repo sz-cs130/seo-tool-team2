@@ -60,7 +60,7 @@ public class KeywordInURL extends Metric {
 	public String returnRecommendations() {
 		String output = "<li><h3>Keyword in URL</h3>";
 		if(!results[0]) {
-			output += "<p>The target keyword doesn't appear in the page URL.  Try moving or renaming this page so the path includes the keyword.";
+			output += "<p><b>The target keyword doesn't appear in the page URL.  Try moving or renaming this page so the path includes the keyword.</b>";
 		} else {
 			output += "<p>No recommendations for this metric.</p>";
 		}

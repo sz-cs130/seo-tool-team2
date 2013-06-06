@@ -68,9 +68,9 @@ public class KeywordInPage extends Metric {
 		
 		String output ="<li><h3>Keyword Frequency</h3>";
 		if(average < results[0] - weight) {
-			output += "<p>Top search results had fewer appearances of the target keyword.  Try limiting keyword appearences to key areas of the site.</p>";
+			output += "<p><b>Top search results had fewer appearances of the target keyword.  Try limiting keyword appearences to key areas of the site.</b></p>";
 		} else if(average > results[0] + weight) {
-			output += "<p>Top search results had more appearances of the target keyword.  Try increasing the keyword appearences throughout the page.</p>";
+			output += "<p><b>Top search results had more appearances of the target keyword.  Try increasing the keyword appearences throughout the page.</b></p>";
 		} else {
 			output += "<p>No recommendations for this metric.</p>";
 		}
