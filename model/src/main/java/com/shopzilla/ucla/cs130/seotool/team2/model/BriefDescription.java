@@ -40,7 +40,7 @@ public class BriefDescription extends Metric
       // above yields negative results when printed, see below method for count
       //String desc = webpages[i].get_content().substring(start, end+1);
 
-      if(length == 0)
+      if(0 == start)
        results[i] = "N/A";
       else
         results[i] = Integer.toString(length); // the description is not brief
@@ -68,12 +68,16 @@ public class BriefDescription extends Metric
 		
 		for(int i = 1; i < pages.length; i++)
 		{
+		   if(results[i] == "N/A")
+		      continue;
 			average += Integer.parseInt(results[i]);
 		}
 		average = average / (pages.length -1);
 		
 		String output ="<li><h3>Decription Brevity</h3>";
-		if(average < Integer.parseInt(results[0]) - weight) {
+		if(results[0] == "N/A"){
+		   output += "<p><b>Add a description to the page.</b></p>";
+		}else if(average < Integer.parseInt(results[0]) - weight) {
 			output += "<p><b>Top search results had shorter descriptions on average.  Try using a shorter page description.</b></p>";
 		} else if(average > Integer.parseInt(results[0]) + weight) {
 			output += "<p><b>Top search results had longer meta descriptions on average.  Try using a longer page description.</b></p>";

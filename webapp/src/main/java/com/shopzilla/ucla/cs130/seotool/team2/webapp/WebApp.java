@@ -14,7 +14,11 @@ import com.shopzilla.ucla.cs130.seotool.team2.model.*;
 public class WebApp {
 	List<Metric> metricList;
 	WebPage[] webpages;
+	private long startTime;
+	private long endTime;
+	
 	public WebApp(WebPage[] pages) {
+	   startTime = System.currentTimeMillis();
 		webpages = pages;
 		
 		metricList = new ArrayList<Metric>();
@@ -38,6 +42,9 @@ public class WebApp {
 		tm = new TitleMatchContent(webpages);
 		metricList.add(tm);
 		
+		tm = new DescriptionMatchesContent(webpages);
+		metricList.add(tm);
+		
 	}
 	
 	public void run() {
@@ -48,6 +55,8 @@ public class WebApp {
 			tm = it.next();
 			tm.run(webpages);
 		}
+		endTime = System.currentTimeMillis();
+		System.out.println("Time taken: " + (endTime - startTime));
 	}
 	
 	public String returnResults() {

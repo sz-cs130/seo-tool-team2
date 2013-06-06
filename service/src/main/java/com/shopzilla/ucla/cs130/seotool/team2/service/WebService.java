@@ -15,6 +15,8 @@ import org.json.JSONObject;
 public class WebService implements Runnable{
    private static final int numResults = 3;
    private static final String key = "AIzaSyB8JAz0MHfwz7s5e5Nv8jf-Ku_WlZbrpPM";
+   // API key backup
+   private static final String key2 = "AIzaSyA5wNH5LlOiSvUHxZHku7PLIw1pV7v5-yc";
    //private static final String bizSearchID = "013100502047583691894:1dyk11jghmi";
    private static final String liveSearchID = "013036536707430787589:_pqjad5hr1a";
    //private static final String shopzillaSearchID = "013100502047583691894:9ncazeorv5y";
@@ -31,7 +33,11 @@ public class WebService implements Runnable{
    // method for them to call
    public static WebPage[] service(String query, String targetsite, String targeturl){
       //Jonathan's code here
-      
+      /*
+      System.out.println(query);
+      System.out.println(targetsite);
+      System.out.println(targeturl);
+      */
       //query.replaceAll("\\s", "+");
       String delims = "\\s";
       String[] tokens = query.split(delims);
@@ -41,6 +47,7 @@ public class WebService implements Runnable{
          if((i+1) < tokens.length)
             urlquery += "+";
       }
+      //System.out.println(urlquery);
       
       pages = new WebPage[numResults + 1];
       for(int i = 0; i < numResults + 1; i++){
@@ -76,7 +83,7 @@ public class WebService implements Runnable{
          StringBuilder build = new StringBuilder();
          // form the url for the google query
          URL url = new URL("https://www.googleapis.com/customsearch/v1?key="
-            + key +"&cx=" + liveSearchID + "&q="
+            + key2 +"&cx=" + liveSearchID + "&q="
             + urlquery+ "&alt=json");
          
          // create the connection
