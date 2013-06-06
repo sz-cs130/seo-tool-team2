@@ -146,25 +146,6 @@ public class IncomingLinks extends Metric implements Runnable
       estimatedIncomingLinks[i] = (9*value1 + value2) / 10;
       
       
-      
-      /*
-      String end_pattern = "\""; // the description tag ends with this
-      Pattern end_pat = Pattern.compile(end_pattern); // create the end pattern object
-      Matcher end_mat = end_pat.matcher(webpages[i].get_content()); // create the end matcher object
-
-      if(end_mat.find(start))
-         end = end_mat.start() - 1; // the description ends right before the ">
-
-      int length = end - start; // the length of the description
-      // above yields negative results when printed, see below method for count
-      //String desc = webpages[i].get_content().substring(start, end+1);
-
-      if(length == 0)
-       results[i] = "N/A";
-      else
-        results[i] = Integer.toString(length); // the description is not brief
-        
-       */
     }
   }
 
