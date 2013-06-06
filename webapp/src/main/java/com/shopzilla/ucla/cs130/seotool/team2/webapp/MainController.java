@@ -48,7 +48,7 @@ public class MainController {
       model.addAttribute("query", query);
       model.addAttribute("output", output);
 	  
-      return "results";
+      return "recommendations";
    }
    
    //@RequestMapping(method = RequestMethod.GET)
