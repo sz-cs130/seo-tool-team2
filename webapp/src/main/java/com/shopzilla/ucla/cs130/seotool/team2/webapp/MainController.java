@@ -27,7 +27,7 @@ public class MainController {
 	  WebApp app = new WebApp(webpages); 
 	  
 	  app.run();
-	  String output = app.returnBoth();
+	  String output = app.returnResults(); // Change this to returnBoth for easier debugging on a single page
 	   
       model.addAttribute("query", query);
       model.addAttribute("output", output);
