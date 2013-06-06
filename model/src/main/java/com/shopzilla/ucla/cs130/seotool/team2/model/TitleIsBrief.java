@@ -41,4 +41,25 @@ public class TitleIsBrief extends Metric {
 		return output;
 	}
 	
+	public String returnRecommendations() {
+		int average = 0;
+		int weight = 5;
+			
+		for(int i = 1; i < pages.length; i++)
+		{
+			average += results[i];
+		}
+		average = average / (pages.length -1);
+			
+		String output ="<li><h3>Title Brevity</h3>";
+		if(average < results[0] - weight) {
+			output += "<p><b>Top search results had shorter titles on average.  Try using a shorter page title.</b></p>";
+		} else if(average > results[0] + weight) {
+			output += "<p><b>Top search results had longer titles on average.  Try using a longer page title.</b></p>";
+		} else {
+			output += "<p>No recommendations for this metric.</p>";
+		}
+		output += "</li>";
+		return output;
+	}
 }

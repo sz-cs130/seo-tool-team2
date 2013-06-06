@@ -69,4 +69,16 @@ public class KeywordInTitle extends Metric {
 		return output;
 	}
 	
+	public String returnRecommendations() {
+		String output = "<li><h3>Keyword in Title</h3>";
+		if(!results[0]) {
+			output += "<p><b>The target keyword doesn't appear in the page title.  Try adding it there.</b>";
+		} else {
+			output += "<p>No recommendations for this metric.</p>";
+		}
+		output += "</li>";
+		
+		return output;
+	}
+	
 }

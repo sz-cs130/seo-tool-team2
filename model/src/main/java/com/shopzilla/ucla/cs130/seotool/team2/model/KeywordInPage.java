@@ -55,4 +55,26 @@ public class KeywordInPage extends Metric {
 		output += "</table></li>";
 		return output;
 	}
+	
+	public String returnRecommendations() {
+		int average = 0;
+		int weight = 10;
+		
+		for(int i = 1; i < pages.length; i++)
+		{
+			average += results[i];
+		}
+		average = average / (pages.length -1);
+		
+		String output ="<li><h3>Keyword Frequency</h3>";
+		if(average < results[0] - weight) {
+			output += "<p><b>Top search results had fewer appearances of the target keyword.  Try limiting keyword appearences to key areas of the site.</b></p>";
+		} else if(average > results[0] + weight) {
+			output += "<p><b>Top search results had more appearances of the target keyword.  Try increasing the keyword appearences throughout the page.</b></p>";
+		} else {
+			output += "<p>No recommendations for this metric.</p>";
+		}
+		output += "</li>";
+		return output;
+	}
 }
