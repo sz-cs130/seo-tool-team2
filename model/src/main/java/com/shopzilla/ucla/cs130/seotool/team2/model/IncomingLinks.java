@@ -128,16 +128,19 @@ public class IncomingLinks extends Metric implements Runnable
       
       // more string processing
       
+      //alexa page parsing
       aResults[i] = aResults[i].replace("<span class=\"font-5 float-right\">", "");
       aResults[i] = aResults[i].replace("</span>", "");
       aResults[i] = aResults[i].replace(",", "");
       
+      //bing results parsing
       bResults[i] = bResults[i].replace("<span class=\"sb_count\" id=\"count\">", "");
       bResults[i] = bResults[i].replace(" results</span>", "");
       bResults[i] = bResults[i].replace(",", "");
       
-      System.out.println(aResults[i]);
-      System.out.println(bResults[i]);
+      //debug output
+      //System.out.println(aResults[i]);
+      //System.out.println(bResults[i]);
       
       float value1 = Float.parseFloat(aResults[i]);
       float value2 = Float.parseFloat(bResults[i]);
@@ -161,7 +164,13 @@ public class IncomingLinks extends Metric implements Runnable
     int i;
     for(i = 0; i < pages.length; i++)
     {
-       String temp = Float.toString(estimatedIncomingLinks[i]);
+       //String temp = Float.toString(estimatedIncomingLinks[i]);
+    	
+       if(estimatedIncomingLinks[i] == (long)estimatedIncomingLinks[i] )
+    	   temp = String.format("%d", (long)estimatedIncomingLinks[i] );
+       else
+    	   temp = String.format("%s", (long)estimatedIncomingLinks[i]);
+       
        output += "<tr><td style=\"text-align:left;\">" + pages[i].get_url() + "</td>";
        output += "<td>" + temp + "</td>";
     }
@@ -243,5 +252,8 @@ public class IncomingLinks extends Metric implements Runnable
        }
 	
   }
+  
+  
   public String get_name(){return "IncomingLinks";}
+  
 }
