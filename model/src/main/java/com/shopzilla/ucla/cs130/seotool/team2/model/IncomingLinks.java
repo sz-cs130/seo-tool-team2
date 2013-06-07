@@ -136,8 +136,8 @@ public class IncomingLinks extends Metric implements Runnable
       bResults[i] = bResults[i].replace(" results</span>", "");
       bResults[i] = bResults[i].replace(",", "");
       
-      System.out.println(aResults[i]);
-      System.out.println(bResults[i]);
+      //System.out.println(aResults[i]);
+      //System.out.println(bResults[i]);
       
       float value1 = Float.parseFloat(aResults[i]);
       float value2 = Float.parseFloat(bResults[i]);
