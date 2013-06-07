@@ -109,9 +109,13 @@ public class IncomingLinks extends Metric implements Runnable
       // create the pattern objects
       Pattern aPattern = Pattern.compile("<span class=\"font-5 float-right\">[0-9,]*</span>"); 
       Pattern bPattern = Pattern.compile("<span class=\"sb_count\" id=\"count\">[0-9,]* results</span>");
+      Matcher aMatcher = null;
+      Matcher bMatcher = null;
+      if(aContents[i] != null)
+         aMatcher = aPattern.matcher(aContents[i]); // create the matcher object
       
-      Matcher aMatcher = aPattern.matcher(aContents[i]); // create the matcher object
-      Matcher bMatcher = bPattern.matcher(bContents[i]); // create the matcher object
+      if(bContents[i] != null)
+         bMatcher = bPattern.matcher(bContents[i]); // create the matcher object
       
       
       if(aMatcher.find())
@@ -239,4 +243,5 @@ public class IncomingLinks extends Metric implements Runnable
        }
 	
   }
+  public String get_name(){return "IncomingLinks";}
 }

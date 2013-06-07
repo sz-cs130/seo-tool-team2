@@ -6,18 +6,25 @@ import java.util.regex.Pattern;
 public class KeywordInPage extends Metric {
 	WebPage[] pages;
 	public int[] results;
+	Thread t;
+	
+	 public KeywordInPage(WebPage[] webpages){
+	      pages = webpages;
+	      results = new int[webpages.length];
+	      t = new Thread(this, "KeywordInPage");
+	      t.start();
+	   }
 	
 	
-	public void run(WebPage[] webpages) {
+	public void run() {
 	     int i;
-	     results = new int[webpages.length];
-	     pages = webpages;
-	     for(i = 0; i < webpages.length; i++)
+	     
+	     for(i = 0; i < pages.length; i++)
 	     {
 	       //pages = webpages;
-	       String pattern = webpages[i].get_keyword(); // the pattern is the keyword
+	       String pattern = pages[i].get_keyword(); // the pattern is the keyword
 	       Pattern pat = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE); // create the pattern object
-	       Matcher mat = pat.matcher(webpages[i].get_content()); // create the matcher object
+	       Matcher mat = pat.matcher(pages[i].get_content()); // create the matcher object
 	       int count = 0; // keyword count
 	       int count2 = 0;
 	       while(mat.find())
@@ -26,10 +33,10 @@ public class KeywordInPage extends Metric {
 	       }
 	       // get the count of the keywords
 	       count2 = count;
-	       for(int j = 0; j<webpages[i].get_keytokens().length; j++){
-	          String pattern2 = webpages[i].get_keytokens()[j];
+	       for(int j = 0; j<pages[i].get_keytokens().length; j++){
+	          String pattern2 = pages[i].get_keytokens()[j];
 	          Pattern pat2 = Pattern.compile(pattern2, Pattern.CASE_INSENSITIVE);
-	          Matcher mat2 = pat2.matcher(webpages[i].get_content());
+	          Matcher mat2 = pat2.matcher(pages[i].get_content());
 	          // get count of each token word
 	          while(mat2.find())
 	             count2++;
@@ -77,4 +84,6 @@ public class KeywordInPage extends Metric {
 		output += "</li>";
 		return output;
 	}
+	 public Thread get_thread() {return t;}
+	 public String get_name(){return "KeywordInPage";}
 }

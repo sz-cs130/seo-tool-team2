@@ -7,10 +7,13 @@ public class DescriptionMatchesContent extends Metric{
    
    private WebPage[] pages;
    private int[] results;
+   Thread t;
    
    public DescriptionMatchesContent(WebPage[] webpages){
       pages = webpages;
       results = new int[webpages.length];
+      t = new Thread(this, "DescriptionMatchesContent");
+      t.start();
    }
    
    // for only checking words
@@ -18,7 +21,7 @@ public class DescriptionMatchesContent extends Metric{
       return word.matches("[a-zA-Z]+");
    }
    
-   public void run(WebPage[] webpages){
+   public void run(){
       
       for(int i = 0; i < pages.length; i++)
       {
@@ -104,5 +107,7 @@ public class DescriptionMatchesContent extends Metric{
       output += "</li>";
       return output;
    }
-
+   
+   public Thread get_thread() {return t;}
+   public String get_name(){return "DescriptionMatchesContent";}
 }

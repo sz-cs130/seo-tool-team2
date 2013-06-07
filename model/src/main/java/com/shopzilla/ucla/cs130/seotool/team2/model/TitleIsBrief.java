@@ -8,17 +8,25 @@ import java.util.regex.Pattern;
 public class TitleIsBrief extends Metric {
 	public int[] results;
 	WebPage[] pages;
+	Thread t;
 	
+	 public TitleIsBrief(WebPage[] webpages){
+	      pages = webpages;
+	      results = new int[webpages.length];
+	      t = new Thread(this, "TitleIsBrief");
+	      t.start();
+	   }
 	
-	public void run(WebPage[] webpages) {
+	public void run() {
 	     int i;
-	     pages = webpages;
-	     results = new int[webpages.length];
-	     for(i = 0; i < webpages.length; i++)
+	     
+	     results = new int[pages.length];
+	     for(i = 0; i < pages.length; i++)
 	     {
 	       String title = "four";
-	       Pattern pat = Pattern.compile(".*<head>.*<title>(.*)</title>.*</head>.*");
-	       Matcher mat = pat.matcher(webpages[i].get_content()); // create the matcher object
+	       //Pattern pat = Pattern.compile(".*<head>.*<title>(.*)</title>.*</head>.*");
+	       Pattern pat = Pattern.compile("<title>(.*)</title>", Pattern.CASE_INSENSITIVE);
+	       Matcher mat = pat.matcher(pages[i].get_content()); // create the matcher object
 	       while(mat.find())
 	       {
 	    	   title = mat.group(1);
@@ -62,4 +70,6 @@ public class TitleIsBrief extends Metric {
 		output += "</li>";
 		return output;
 	}
+	 public Thread get_thread() {return t;}
+	 public String get_name(){return "TitleIsBrief";}
 }

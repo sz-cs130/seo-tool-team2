@@ -118,7 +118,8 @@ public class WebService implements Runnable{
             
             // check if the link belongs to amazon or ebay
             if (tempurl.contains("amazon") || 
-                tempurl.contains("ebay")){
+                tempurl.contains("ebay") ||
+                tempurl.contains("wikipedia")){
                continue;
             }
             else if(tempurl.contains(targetsite)){

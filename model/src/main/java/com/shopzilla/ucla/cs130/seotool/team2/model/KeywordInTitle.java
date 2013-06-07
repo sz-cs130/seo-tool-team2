@@ -8,44 +8,62 @@ import java.util.regex.Pattern;
 public class KeywordInTitle extends Metric {
 	public boolean[] results;
 	WebPage[] pages;
+	Thread t;
 	
+	 public KeywordInTitle(WebPage[] webpages){
+	      pages = webpages;
+	      results = new boolean[webpages.length];
+	      t = new Thread(this, "TitleMatchContent");
+	      t.start();
+	   }
 	
-	public void run(WebPage[] webpages) {
+	public void run() {
 	     int i;
-	     pages = webpages;
-	     results = new boolean[webpages.length];
-	     for(i = 0; i < webpages.length; i++)
+	     System.out.println("Will go through this loop: " + Integer.toString(pages.length));
+	     for(i = 0; i < pages.length; i++)
 	     {
+	       System.out.println("Checkpoint beginning of iteration");
 	       // Placeholder, if everything's 4s then something went wrong
 	       String title = "fore";
 	       // find the title
-	       Pattern pat = Pattern.compile(".*<head>.*<title>(.*)</title>.*</head>.*", Pattern.CASE_INSENSITIVE);
-	       Matcher mat = pat.matcher(webpages[i].get_content()); // create the matcher object
+	       //Pattern pat = Pattern.compile(".*<head>.*<title>(.*)</title>.*</head>.*", Pattern.CASE_INSENSITIVE);
+	       Pattern pat = Pattern.compile("<title>(.*)</title>", Pattern.CASE_INSENSITIVE);
+	       Matcher mat = pat.matcher(pages[i].get_content()); // create the matcher object
+	       
+	       System.out.println("Created the matcher for the title");
 	       if(mat.find()) {
 	    	   // find the keyword in the title
 	    	   title = mat.group(1);
-	    	   pat = Pattern.compile(webpages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
+	    	  System.out.println("found the title: " +title);
+	    	   pat = Pattern.compile(pages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
 	    	   mat = pat.matcher(title);
 	    	   if(mat.find())
 	    	   {
 	    		   results[i] = true;
+	    		  System.out.println("Found keyword in title.");
+	    		   
 	    	   } else {
-	    		   results[i] = false;
+	    	      System.out.println("Using tokens to search the title: " + title);
+	    	      results[i] = false;
+	    	      for(int j = 0; j<pages[i].get_keytokens().length; j++){
+	                String pattern2 = pages[i].get_keytokens()[j];
+	                //System.out.println(pattern2);
+	                Pattern pat2 = Pattern.compile(pattern2, Pattern.CASE_INSENSITIVE);
+	                Matcher mat2 = pat2.matcher(title);
+	                // get count of each token word
+	                if(mat2.find()){
+	                   results[i] = true;
+	                   break;
+	                }
+	            }
 	    	   }
-	    	  for(int j = 0; j<webpages[i].get_keytokens().length; j++){
-	             String pattern2 = webpages[i].get_keytokens()[j];
-	             Pattern pat2 = Pattern.compile(pattern2, Pattern.CASE_INSENSITIVE);
-	             Matcher mat2 = pat2.matcher(webpages[i].get_content());
-	             // get count of each token word
-	             if(mat2.find()){
-	                results[i] = true;
-	                break;
-	             }
-	          }
-	       } else {
-	    	   results[i] = false;
-	       } 
-	     }
+          } else {
+             System.out.println("Did not find the title");
+            results[i] = false;
+          } 
+	       System.out.println("Checkpoint: end of iteration");
+        }
+	     System.out.println("Done with KeywordInTitle");
 	}
 	
 	public String returnResults() {
@@ -80,5 +98,7 @@ public class KeywordInTitle extends Metric {
 		
 		return output;
 	}
-	
+	 public Thread get_thread() {return t;}
+	 
+	 public String get_name(){return "KeywordInTitle";}
 }

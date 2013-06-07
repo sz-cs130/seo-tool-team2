@@ -1,6 +1,6 @@
 package com.shopzilla.ucla.cs130.seotool.team2.model;
 
-public class Metric {
+public class Metric implements Runnable{
 	public Metric () {
 		
 	}
@@ -22,4 +22,17 @@ public class Metric {
 		results += returnRecommendations();
 		return results;
 	}
+
+   public void run() {
+      
+   }
+   
+   public Thread get_thread(){
+      return null;
+   }
+   
+   public String get_name(){
+      return "Name not implemented";
+   }
+   
 }

@@ -8,6 +8,8 @@ public class TitleMatchContent extends Metric{
    
    private int[] results;
    WebPage[] pages;
+   Thread t;
+   
    public TitleMatchContent(){
       
    }
@@ -15,6 +17,8 @@ public class TitleMatchContent extends Metric{
    public TitleMatchContent(WebPage[] webpages){
       pages = webpages;
       results = new int[webpages.length];
+      t = new Thread(this, "TitleMatchContent");
+      t.start();
    }
    
    // for only checking words
@@ -22,20 +26,20 @@ public class TitleMatchContent extends Metric{
       return word.matches("[a-zA-Z]+");
    }
    
-   public void run(WebPage[] webpages){
+   public void run(){
       
       for(int i = 0; i < pages.length; i++)
       {
         int start = 0; 
         int end = 0; // the start and end index of the description
-        String start_pattern = ".*<head>.*<title>"; // the pattern is the title
+        String start_pattern = "<title>"; // the pattern is the title
         Pattern start_pat = Pattern.compile(start_pattern); // create the pattern object
         Matcher start_mat = start_pat.matcher(pages[i].get_content()); // create the matcher object
         
         if(start_mat.find())
            start = start_mat.end(); // the description starts right after the content="
 
-        String end_pattern = "</title>.*</head>.*"; // the description tag ends with this
+        String end_pattern = "</title>"; // the description tag ends with this
         Pattern end_pat = Pattern.compile(end_pattern); // create the end pattern object
         Matcher end_mat = end_pat.matcher(pages[i].get_content()); // create the end matcher object
 
@@ -108,5 +112,8 @@ public class TitleMatchContent extends Metric{
 
       return output;
    }
+   
+   public Thread get_thread() {return t;}
+   public String get_name(){return "TitleMatchContent";}
 }
 

@@ -6,13 +6,19 @@ import java.util.regex.Pattern;
 public class KeywordInURL extends Metric {
 	public boolean[] results;
 	WebPage[] pages;
+	Thread t;
 	
+	 public KeywordInURL(WebPage[] webpages){
+	      pages = webpages;
+	      results = new boolean[webpages.length];
+	      t = new Thread(this, "KeywordInURL");
+	      t.start();
+	   }
 	
-	public void run(WebPage[] webpages) {
+	public void run() {
 	     int i;
-	     pages = webpages;
-	     results = new boolean[webpages.length];
-	     for(i = 0; i < webpages.length; i++)
+	     
+	     for(i = 0; i < pages.length; i++)
 	     {
 	       //pages = webpages;
 	       Pattern pat = Pattern.compile(pages[i].get_keyword(), Pattern.CASE_INSENSITIVE);
@@ -68,5 +74,7 @@ public class KeywordInURL extends Metric {
 		
 		return output;
 	}
+	 public Thread get_thread() {return t;}
+	 public String get_name(){return "KeywordInURL";}
 	
 }

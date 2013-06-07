@@ -9,29 +9,34 @@ public class BriefDescription extends Metric
 {
   WebPage[] pages;
   public String[] results;
+  Thread t;
 
   // constructor
- 
+  public BriefDescription(WebPage[] webpages){
+     pages = webpages;
+     results = new String[webpages.length];
+     t = new Thread(this, "BriefDescription");
+     t.start();
+  }
 
-  public void run(WebPage[] webpages)
+  public void run()
   {
     int i;
-    pages = webpages;
-    results = new String[webpages.length];
-    for(i = 0; i < webpages.length; i++)
+
+    for(i = 0; i < pages.length; i++)
     {
       int start = 0; 
       int end = 0; // the start and end index of the description
       String start_pattern = "<meta name=\"description\" content=\""; // the pattern is the description tag
       Pattern start_pat = Pattern.compile(start_pattern); // create the pattern object
-      Matcher start_mat = start_pat.matcher(webpages[i].get_content()); // create the matcher object
+      Matcher start_mat = start_pat.matcher(pages[i].get_content()); // create the matcher object
       
       if(start_mat.find())
          start = start_mat.end(); // the description starts right after the content="
 
-      String end_pattern = "\""; // the description tag ends with this
+      String end_pattern = ">"; // the description tag ends with this
       Pattern end_pat = Pattern.compile(end_pattern); // create the end pattern object
-      Matcher end_mat = end_pat.matcher(webpages[i].get_content()); // create the end matcher object
+      Matcher end_mat = end_pat.matcher(pages[i].get_content()); // create the end matcher object
 
       if(end_mat.find(start))
          end = end_mat.start() - 1; // the description ends right before the ">
@@ -87,4 +92,6 @@ public class BriefDescription extends Metric
 		output += "</li>";
 		return output;
 	}
+  public Thread get_thread() {return t;}
+  public String get_name(){return "BriefDescription";}
 }
