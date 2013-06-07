@@ -21,41 +21,41 @@ public class WebApp {
 	   startTime = System.currentTimeMillis();
 		webpages = pages;
 		
-		System.out.println("Creating Metric List");
+		
 		metricList = new ArrayList<Metric>();
 		Metric tm;
 		
-		System.out.println("Creating Metric KeywordInPage");
+		
 		tm = new KeywordInPage(webpages);
 		metricList.add(tm);
 		
-		System.out.println("Creating Metric KeywordInURL");
+		
 		tm = new KeywordInURL(webpages);
 		metricList.add(tm);
 		
-		System.out.println("Creating Metric KeywordInTitle");
+		
 		tm = new KeywordInTitle(webpages);
 		metricList.add(tm);
 		
-		System.out.println("Creating Metric TitleIsBrief");
+		
 		tm = new TitleIsBrief(webpages);
 		metricList.add(tm);
 		
-		System.out.println("Creating Metric BriefDescription");
+		
 		tm = new BriefDescription(webpages);
 		metricList.add(tm);
 		
-		System.out.println("Creating Metric TitleMatchContent");
+	
 		tm = new TitleMatchContent(webpages);
 		metricList.add(tm);
 		
-		System.out.println("Creating Metric DescriptionMatchesContent");
+		
 		tm = new DescriptionMatchesContent(webpages);
 		metricList.add(tm);
 
 		
 		// always run this one last
-		System.out.println("Creating Metric IncomingLinks");
+		
 		tm = new IncomingLinks();
 		tm.run(webpages);
 		metricList.add(tm);
@@ -69,7 +69,6 @@ public class WebApp {
 		while(it.hasNext()) {
 		   
 			tm = it.next();
-			System.out.println("Joining Metric: "+ tm.get_name());
 			Thread t;
 			if((t = tm.get_thread())!= null){
 			   try{

@@ -24,7 +24,7 @@ public class TitleIsBrief extends Metric {
 	     for(i = 0; i < pages.length; i++)
 	     {
 	       String title = "four";
-	       //Pattern pat = Pattern.compile(".*<head>.*<title>(.*)</title>.*</head>.*");
+	      
 	       Pattern pat = Pattern.compile("<title>(.*)</title>", Pattern.CASE_INSENSITIVE);
 	       Matcher mat = pat.matcher(pages[i].get_content()); // create the matcher object
 	       while(mat.find())
