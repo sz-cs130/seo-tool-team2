@@ -138,6 +138,7 @@ public class IncomingLinks extends Metric implements Runnable
       bResults[i] = bResults[i].replace(" results</span>", "");
       bResults[i] = bResults[i].replace(",", "");
       
+
       //debug output
       //System.out.println(aResults[i]);
       //System.out.println(bResults[i]);
@@ -165,7 +166,7 @@ public class IncomingLinks extends Metric implements Runnable
     for(i = 0; i < pages.length; i++)
     {
        //String temp = Float.toString(estimatedIncomingLinks[i]);
-    	
+    	String temp;
        if(estimatedIncomingLinks[i] == (long)estimatedIncomingLinks[i] )
     	   temp = String.format("%d", (long)estimatedIncomingLinks[i] );
        else

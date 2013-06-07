@@ -33,12 +33,7 @@ public class WebService implements Runnable{
    // method for them to call
    public static WebPage[] service(String query, String targetsite, String targeturl){
       //Jonathan's code here
-      /*
-      System.out.println(query);
-      System.out.println(targetsite);
-      System.out.println(targeturl);
-      */
-      //query.replaceAll("\\s", "+");
+
       String delims = "\\s";
       String[] tokens = query.split(delims);
       String urlquery = "";

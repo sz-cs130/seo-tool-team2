@@ -53,9 +53,10 @@ public class WebApp {
 		tm = new DescriptionMatchesContent(webpages);
 		metricList.add(tm);
 
+		tm = new RelatedWords(webpages);
+		metricList.add(tm);
 		
 		// always run this one last
-		
 		tm = new IncomingLinks();
 		tm.run(webpages);
 		metricList.add(tm);
